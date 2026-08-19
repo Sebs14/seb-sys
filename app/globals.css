@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════════════════════
+   SEB.SYS — sistema de diseño ASCII
+   Todo el layout se ancla a una grilla monoespaciada.
+   Horizontal: unidad `ch` (ancho de avance del glifo).
+   Vertical:   unidad --lh (alto de línea, px exactos).
+   ══════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── paleta ────────────────────────────────────────────────── */
+  --color-term-bg: #080b08;
+  --color-term-panel: #0c110c;
+  --color-term-line: #16301c;
+
+  --color-term-green: #33ff66;
+  --color-term-green-dim: #1a803a;
+  --color-term-green-deep: #0f4a22;
+
+  --color-term-white: #e6ffe9;
+  --color-term-gray: #7d968a;
+
+  --color-term-amber: #ffb000;
+  --color-term-red: #ff4444;
+  --color-term-cyan: #33ffdd;
+
+  /* ── tipografía ───────────────────────────────────────────── */
+  --font-mono: var(--font-term-mono), ui-monospace, "Cascadia Mono", monospace;
+
+  /* ── animaciones ──────────────────────────────────────────── */
+  --animate-blink: blink 1.06s step-end infinite;
+  --animate-scan: scan 7s linear infinite;
+  --animate-flicker: flicker 4.5s infinite;
+  --animate-pulse-glow: pulse-glow 2.4s ease-in-out infinite;
+}
+
+/* ── la grilla ──────────────────────────────────────────────── */
+:root {
+  --fs: 14px; /* tamaño de caracter base */
+  --lh: 21px; /* alto de línea = 1.5 × fs, entero para que la grilla cierre */
+  --glow: 0 0 6px rgb(51 255 102 / 0.45);
+  --glow-strong: 0 0 4px rgb(51 255 102 / 0.9), 0 0 14px rgb(51 255 102 / 0.5);
+  color-scheme: dark;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --fs: 15px;
+    --lh: 24px;
+  }
+}
+
+html {
+  font-size: var(--fs);
+  line-height: var(--lh);
+  background: var(--color-term-bg);
+  /* la grilla de fondo: una celda de caracter, apenas visible */
+  background-image:
+    linear-gradient(to right, rgb(51 255 102 / 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(51 255 102 / 0.028) 1px, transparent 1px);
+  background-size: 2ch var(--lh);
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  color: var(--color-term-white);
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeSpeed;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-term-green);
+  color: var(--color-term-bg);
+  text-shadow: none;
+}
+
+/* ── scrollbar en carácteres ────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 1ch;
+  height: var(--lh);
+}
+::-webkit-scrollbar-track {
+  background: var(--color-term-bg);
+  border-left: 1px solid var(--color-term-line);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-term-green-deep);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-term-green-dim);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   UTILIDADES
+   ══════════════════════════════════════════════════════════════ */
+
+@utility glow {
+  text-shadow: var(--glow);
+}
+@utility glow-strong {
+  text-shadow: var(--glow-strong);
+}
+
+/* Preserva el arte ASCII sin colapsar espacios ni romper líneas. */
+@utility ascii-art {
+  white-space: pre;
+  font-family: var(--font-mono);
+  line-height: 1.02;
+  letter-spacing: 0;
+  tab-size: 4;
+}
+
+/* Bloque que respeta la grilla vertical exacta. */
+@utility grid-rows-lh {
+  line-height: var(--lh);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EFECTO CRT — scanlines + viñeta + flicker
+   Se aplica sobre un contenedor fijo, pointer-events:none
+   ══════════════════════════════════════════════════════════════ */
+
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* líneas horizontales finas, la firma del monitor de fósforo */
+.crt-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0) 0px,
+    rgb(0 0 0 / 0) 2px,
+    rgb(0 0 0 / 0.22) 3px,
+    rgb(0 0 0 / 0.22) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* viñeta + barrido lento que recorre la pantalla */
+.crt-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgb(0 0 0 / 0) 55%,
+      rgb(0 0 0 / 0.55) 100%
+    );
+}
+
+.crt-scanbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 28vh;
+  background: linear-gradient(
+    to bottom,
+    rgb(51 255 102 / 0) 0%,
+    rgb(51 255 102 / 0.035) 50%,
+    rgb(51 255 102 / 0) 100%
+  );
+  animation: var(--animate-scan);
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-30vh);
+  }
+  100% {
+    transform: translateY(130vh);
+  }
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes flicker {
+  0%,
+  95%,
+  100% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.82;
+  }
+  97% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 4px rgb(51 255 102 / 0.35);
+  }
+  50% {
+    text-shadow:
+      0 0 6px rgb(51 255 102 / 0.85),
+      0 0 18px rgb(51 255 102 / 0.4);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ACCESIBILIDAD
+   Todo el ASCII decorativo se oculta al lector de pantalla y se
+   expone texto real vía .sr-only. Y respetamos reduced-motion.
+   ══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .crt-scanbar {
+    display: none;
+  }
+}
+
+/* Foco visible en teclado, en estética terminal. */
+:focus-visible {
+  outline: 2px solid var(--color-term-green);
+  outline-offset: 2px;
+}
