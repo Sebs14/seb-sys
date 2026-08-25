@@ -1,0 +1,44 @@
+1:"$Sreact.fragment"
+2:I[22016,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js","/seb-sys/_next/static/chunks/22i43cg4l4-dq.js"],""]
+3:I[97367,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+8:I[97367,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"ViewportBoundary"]
+9:I[97367,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"MetadataBoundary"]
+a:I[27201,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"IconMark"]
+c:I[39756,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"default"]
+d:I[37457,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"default"]
+10:I[7761,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"LangProvider"]
+11:I[44957,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"Starfield"]
+:HL["/seb-sys/_next/static/chunks/01ki751khnotp.css","style"]
+7:X
+f:X
+f:C
+0:{"buildId":"cL0XNGLe4017PTUGzUgJB","data":[{"rsc":["$","$1","c",{"children":[["$","main",null,{"className":"mx-auto max-w-[110ch] px-[2ch] py-[calc(var(--lh)*3)]","children":[["$","p",null,{"className":"text-term-red","children":"segmentation fault (core dumped)"}],["$","p",null,{"className":"mt-[var(--lh)] text-term-gray","children":"la ruta que pediste no existe en este sistema."}],["$","p",null,{"className":"text-term-gray","children":"the path you asked for does not exist on this system."}],["$","pre",null,{"aria-hidden":true,"className":"mt-[var(--lh)] overflow-x-auto whitespace-pre text-term-green-deep","children":"  rax 0x0000000000000000   rbx 0x00007ffee3b0a1c8\n  rcx 0x000000000000002a   rdx 0x0000000000000000\n  rsi 0x00007ffee3b0a1d0   rdi 0x0000000000000404\n  rip 0x000000010a4f2e10   rsp 0x00007ffee3b0a180"}],["$","p",null,{"className":"mt-[var(--lh)] text-term-green","children":["$$ ",["$","$L2",null,{"href":"/","className":"underline-offset-4 hover:glow-strong hover:underline","children":"cd /"}]]}]]}],[["$","script","script-0",{"src":"/seb-sys/_next/static/chunks/22i43cg4l4-dq.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":"$@6","staleTime":"$7","varyParams":null},{"rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L8",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#080b08"}],["$","meta","3",{"name":"color-scheme","content":"dark"}]]}],["$","div",null,{"hidden":true,"children":["$","$L9",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"404 — segmentation fault — Sebastián Flores"}],["$","meta","1",{"name":"description","content":"Portafolio renderizado enteramente en caracteres. Desarrollo de software, sistemas y experimentos de interfaz."}],["$","meta","2",{"name":"robots","content":"index, follow"}],["$","meta","3",{"property":"og:title","content":"Sebastián Flores — Ingeniero de Software"}],["$","meta","4",{"property":"og:description","content":"Portafolio renderizado enteramente en caracteres."}],["$","meta","5",{"property":"og:site_name","content":"seb.sys"}],["$","meta","6",{"property":"og:type","content":"website"}],["$","meta","7",{"name":"twitter:card","content":"summary"}],["$","meta","8",{"name":"twitter:title","content":"Sebastián Flores — Ingeniero de Software"}],["$","meta","9",{"name":"twitter:description","content":"Portafolio renderizado enteramente en caracteres."}],["$","link","10",{"rel":"icon","href":"/seb-sys/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$La","11",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":"$@b","staleTime":"$7","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Lc",null,{"parallelRouterKey":"children","template":["$","$Ld",null,{}]}]]}],"isPartial":"$@e","staleTime":"$7","varyParams":"$f"},{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/seb-sys/_next/static/chunks/01ki751khnotp.css","precedence":"next"}],["$","script","script-0",{"src":"/seb-sys/_next/static/chunks/3fntmmi971322.js","async":true}],["$","script","script-1",{"src":"/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js","async":true}]],["$","html",null,{"lang":"es","className":"jetbrains_mono_ca509895-module___4AmyW__variable h-full","children":["$","body",null,{"className":"min-h-full antialiased","children":["$","$L10",null,{"children":[["$","a",null,{"href":"#main","className":"sr-only focus:not-sr-only focus:absolute focus:left-[2ch] focus:top-[var(--lh)] focus:z-[200] focus:bg-term-bg focus:px-[1ch] focus:text-term-green","children":"Saltar al contenido principal"}],["$","$L11",null,{}],["$","$Lc",null,{"parallelRouterKey":"children","template":["$","$Ld",null,{}],"notFound":[["$","main",null,{"className":"mx-auto max-w-[110ch] px-[2ch] py-[calc(var(--lh)*3)]","children":[["$","p",null,{"className":"text-term-red","children":"segmentation fault (core dumped)"}],["$","p",null,{"className":"mt-[var(--lh)] text-term-gray","children":"la ruta que pediste no existe en este sistema."}],["$","p",null,{"className":"text-term-gray","children":"the path you asked for does not exist on this system."}],"$L12","$L13"]}],[]]}],"$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c"]}]}]}]]}],"isPartial":"$@1d","staleTime":"$7","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@1e","rootVaryParams":null,"needsRuntimeRequest":"$@1f"}
+20:I[75764,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"Cat"]
+21:I[86739,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"Train"]
+22:I[54713,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"Matrix"]
+23:I[70776,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"Terminal"]
+24:I[54215,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"VHold"]
+25:I[13098,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"VimTrap"]
+26:I[4130,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"Screensaver"]
+27:I[19501,["/seb-sys/_next/static/chunks/3fntmmi971322.js","/seb-sys/_next/static/chunks/2c0sfxtid4kqn.js"],"Poweroff"]
+5:null
+12:["$","pre",null,{"aria-hidden":true,"className":"mt-[var(--lh)] overflow-x-auto whitespace-pre text-term-green-deep","children":"  rax 0x0000000000000000   rbx 0x00007ffee3b0a1c8\n  rcx 0x000000000000002a   rdx 0x0000000000000000\n  rsi 0x00007ffee3b0a1d0   rdi 0x0000000000000404\n  rip 0x000000010a4f2e10   rsp 0x00007ffee3b0a180"}]
+13:["$","p",null,{"className":"mt-[var(--lh)] text-term-green","children":["$$ ",["$","$L2",null,{"href":"/","className":"underline-offset-4 hover:glow-strong hover:underline","children":"cd /"}]]}]
+14:["$","$L20",null,{}]
+15:["$","$L21",null,{}]
+16:["$","$L22",null,{}]
+17:["$","$L23",null,{}]
+18:["$","$L24",null,{}]
+19:["$","$L25",null,{}]
+1a:["$","$L26",null,{}]
+1b:["$","$L27",null,{}]
+1c:["$","div",null,{"className":"crt-overlay","aria-hidden":true}]
+7:300
+1f:true
+7:C
+1e:0
+b:"$undefined"
+e:"$undefined"
+1d:"$undefined"
+6:"$undefined"
