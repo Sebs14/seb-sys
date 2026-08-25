@@ -354,7 +354,7 @@ export const projects: Project[] = [
       },
     ],
     tags: ["Next.js", "Three.js", "GLSL", "TypeScript"],
-    source: "https://github.com/Sebs14",
+    source: "https://github.com/Sebs14/seb-sys",
   },
 ];
 
