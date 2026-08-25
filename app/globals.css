@@ -29,7 +29,6 @@
 
   /* ── animaciones ──────────────────────────────────────────── */
   --animate-blink: blink 1.06s step-end infinite;
-  --animate-scan: scan 7s linear infinite;
   --animate-flicker: flicker 4.5s infinite;
   --animate-pulse-glow: pulse-glow 2.4s ease-in-out infinite;
 }
@@ -131,7 +130,17 @@ body {
   z-index: 100;
 }
 
-/* líneas horizontales finas, la firma del monitor de fósforo */
+/* líneas horizontales finas, la firma del monitor de fósforo.
+
+   SIN `mix-blend-mode: multiply` a propósito. Un blend sobre un
+   elemento fijo del tamaño de la ventana obliga al compositor a
+   re-mezclar la pantalla ENTERA en cada cuadro — y como el barrido de
+   abajo se anima sin parar, eso pasaba 60 veces por segundo para
+   siempre, en toda la pantalla. En un retina son millones de píxeles
+   por cuadro y el equipo entero se arrastra.
+
+   Negro con alfa oscurece prácticamente igual y es composición normal:
+   mismo look, sin la mezcla. */
 .crt-overlay::before {
   content: "";
   position: absolute;
@@ -140,10 +149,9 @@ body {
     to bottom,
     rgb(0 0 0 / 0) 0px,
     rgb(0 0 0 / 0) 2px,
-    rgb(0 0 0 / 0.22) 3px,
-    rgb(0 0 0 / 0.22) 4px
+    rgb(0 0 0 / 0.26) 3px,
+    rgb(0 0 0 / 0.26) 4px
   );
-  mix-blend-mode: multiply;
 }
 
 /* viñeta + barrido lento que recorre la pantalla */
@@ -157,29 +165,6 @@ body {
       rgb(0 0 0 / 0) 55%,
       rgb(0 0 0 / 0.55) 100%
     );
-}
-
-.crt-scanbar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 28vh;
-  background: linear-gradient(
-    to bottom,
-    rgb(51 255 102 / 0) 0%,
-    rgb(51 255 102 / 0.035) 50%,
-    rgb(51 255 102 / 0) 100%
-  );
-  animation: var(--animate-scan);
-}
-
-@keyframes scan {
-  0% {
-    transform: translateY(-30vh);
-  }
-  100% {
-    transform: translateY(130vh);
-  }
 }
 
 @keyframes blink {
@@ -237,13 +222,43 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .crt-scanbar {
-    display: none;
-  }
 }
 
-/* Foco visible en teclado, en estética terminal. */
-:focus-visible {
+/* Foco visible en teclado, en estética terminal.
+
+   Ojo con la cascada: estas reglas viven FUERA de toda capa, y el CSS
+   sin capa le gana al de `@layer utilities` (donde Tailwind pone sus
+   utilidades) sin importar la especificidad. Por eso un
+   `focus-visible:outline-none` en el elemento no alcanza para
+   sobreescribirlas, y hace falta esta exención explícita.
+
+   `[data-caret-focus]` la usa el input de la terminal, que indica su
+   foco con un cursor de bloque propio en vez de un recuadro. */
+:focus-visible:not([data-caret-focus]) {
   outline: 2px solid var(--color-term-green);
   outline-offset: 2px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FÓSFORO ÁMBAR
+
+   El otro monitor clásico. Se activa con `theme amber` en la
+   terminal y sólo redefine los tokens de color: todo lo demás
+   (marcos, glifos, animaciones) ya los consume.
+
+   Va sin capa a propósito — el CSS fuera de `@layer` le gana al de
+   `@layer theme` donde Tailwind pone los tokens de `@theme`.
+   Ver [[CSS sin capa le gana al de @layer]].
+   ══════════════════════════════════════════════════════════════ */
+
+:root[data-phosphor="amber"] {
+  --color-term-green: #ffb000;
+  --color-term-green-dim: #a35f00;
+  --color-term-green-deep: #4a2a00;
+  --color-term-white: #fff1d6;
+  --color-term-gray: #9a8468;
+  --color-term-line: #3a2510;
+  --color-term-bg: #0b0803;
+  --glow: 0 0 6px rgb(255 176 0 / 0.45);
+  --glow-strong: 0 0 4px rgb(255 176 0 / 0.9), 0 0 14px rgb(255 176 0 / 0.5);
 }

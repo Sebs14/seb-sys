@@ -2,6 +2,15 @@ import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { LangProvider } from "@/lib/i18n";
 import { CrtOverlay } from "@/components/crt-overlay";
+import { Starfield } from "@/components/ascii/starfield";
+import { Cat } from "@/components/ascii/cat";
+import { Matrix } from "@/components/ascii/matrix";
+import { Terminal } from "@/components/ascii/terminal";
+import { Train } from "@/components/ascii/train";
+import { VHold } from "@/components/ascii/vhold";
+import { VimTrap } from "@/components/ascii/vim-trap";
+import { Screensaver } from "@/components/ascii/screensaver";
+import { Poweroff } from "@/components/ascii/poweroff";
 import { identity } from "@/lib/content";
 import "./globals.css";
 
@@ -48,7 +57,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           >
             Saltar al contenido principal
           </a>
+          <Starfield />
           {children}
+          <Cat />
+          <Train />
+          <Matrix />
+          <Terminal />
+          <VHold />
+          <VimTrap />
+          <Screensaver />
+          <Poweroff />
           <CrtOverlay />
         </LangProvider>
       </body>
