@@ -18,7 +18,9 @@ export const identity = {
   email: "floresirahetasebastian@hotmail.com",
   github: "https://github.com/Sebs14",
   linkedin: "https://www.linkedin.com/in/sebsflores/",
-  site: "https://seb.sys",
+  // URL real de publicación: alimenta el metadataBase, o sea las
+  // URLs absolutas de las metaetiquetas al compartir el link.
+  site: "https://sebs14.github.io/seb-sys",
 };
 
 export const hero = {
