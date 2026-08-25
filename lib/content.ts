@@ -11,8 +11,8 @@ export const identity = {
   name: "Sebastián Flores",
   handle: "sebs14",
   role: {
-    es: "Desarrollador de Software",
-    en: "Software Developer",
+    es: "Ingeniero de Software",
+    en: "Software Engineer",
   } satisfies Bi,
   location: { es: "El Salvador", en: "El Salvador" } satisfies Bi,
   email: "floresirahetasebastian@hotmail.com",
@@ -37,8 +37,8 @@ export const hero = {
 export const about = {
   paragraphs: [
     {
-      es: "Desarrollador salvadoreño. Trabajo en sistemas públicos de educación: plataformas que usan miles de niños, maestros y directores al mismo tiempo, donde el software tiene que funcionar para todos y no solo para el caso feliz.",
-      en: "Salvadoran developer. I work on public education systems: platforms used by thousands of kids, teachers and principals at once, where software has to work for everyone and not just the happy path.",
+      es: "Ingeniero salvadoreño. Trabajo en sistemas públicos de educación: plataformas que usan miles de niños, maestros y directores al mismo tiempo, donde el software tiene que funcionar para todos y no solo para el caso feliz.",
+      en: "Salvadoran engineer. I work on public education systems: platforms used by thousands of kids, teachers and principals at once, where software has to work for everyone and not just the happy path.",
     },
     {
       es: "Me toca de punta a punta: el motor de optimización o de IA por dentro, la API que lo orquesta y la pantalla donde alguien que no es técnico entiende el resultado. Casi siempre lo difícil no es el algoritmo, es que el dato real venga sucio.",
@@ -61,7 +61,7 @@ export type Fact = { label: Bi; value: Bi };
 export const facts: Fact[] = [
   {
     label: { es: "rol", en: "role" },
-    value: { es: "full-stack", en: "full-stack" },
+    value: { es: "fullstack", en: "fullstack" },
   },
   {
     label: { es: "base", en: "based" },
@@ -375,8 +375,8 @@ export const experience: Job[] = [
   {
     company: "GOES — Gobierno de El Salvador",
     role: {
-      es: "Desarrollador de Software full-stack",
-      en: "Full-stack Software Developer",
+      es: "Ingeniero de Software Fullstack",
+      en: "Fullstack Software Engineer",
     },
     from: "feb 2026",
     to: null,
@@ -398,8 +398,8 @@ export const experience: Job[] = [
   {
     company: "UassistME",
     role: {
-      es: "Independiente — consultoría y desarrollo full-stack",
-      en: "Freelance — full-stack consulting and development",
+      es: "Independiente — consultoría y desarrollo Fullstack",
+      en: "Freelance — Fullstack consulting and development",
     },
     // TODO: si querés el mes de arranque, decímelo; dejé sólo el año.
     from: "2026",
@@ -409,8 +409,8 @@ export const experience: Job[] = [
   {
     company: "Cikume Software",
     role: {
-      es: "Desarrollador full-stack",
-      en: "Full-stack Developer",
+      es: "Ingeniero Fullstack",
+      en: "Fullstack Engineer",
     },
     from: "ene 2025",
     to: "feb 2026",
@@ -429,7 +429,7 @@ export const experience: Job[] = [
   {
     company: "DataSoft",
     role: {
-      es: "Fullstack Engineer",
+      es: "Ingeniero Fullstack",
       en: "Fullstack Engineer",
     },
     from: "2023",
@@ -439,8 +439,8 @@ export const experience: Job[] = [
   {
     company: "Elaniin",
     role: {
-      es: "Desarrollador full-stack",
-      en: "Full-stack Developer",
+      es: "Ingeniero Fullstack",
+      en: "Fullstack Engineer",
     },
     from: "nov 2022",
     to: "mar 2023",
