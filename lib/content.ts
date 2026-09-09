@@ -89,7 +89,10 @@ export const facts: Fact[] = [
 ];
 
 /* ── stack ────────────────────────────────────────────────────
-   `level` alimenta la barra de bloques ░▒▓█ (0-100).           */
+   Las categorías agrupan el stack en la página. `level` es un dato
+   heredado de la versión ASCII: se conserva por compatibilidad pero
+   la interfaz pública ya no lo presenta como una métrica — lo que se
+   muestra es en qué proyectos aparece cada tecnología (lib/expertise). */
 
 export type StackItem = { name: string; level: number };
 export type StackGroup = { label: Bi; items: StackItem[] };
@@ -337,26 +340,103 @@ export const projects: Project[] = [
     org: { es: "Este sitio", en: "This site" },
     year: "2026",
     tagline: {
-      es: "Portafolio renderizado enteramente en caracteres",
-      en: "A portfolio rendered entirely in characters",
+      es: "Una escultura de aluminio que se abre en siete sistemas",
+      en: "An aluminium sculpture that opens into seven systems",
     },
     description: {
-      es: "Un motor de post-proceso en WebGL convierte una escena 3D en glifos: la escena se renderiza a un texel por celda de caracter y un shader elige el glifo según la luminancia. Los marcos tampoco son CSS — son tiras de caracteres recortadas al ancho disponible.",
-      en: "A WebGL post-processing engine turns a 3D scene into glyphs: the scene renders to one texel per character cell and a shader picks the glyph from its luminance. The frames aren't CSS either — they're character strips clipped to the available width.",
+      es: "Este sitio. Una escena Three.js con siete piezas de aluminio, una por proyecto, que se separan en un mapa conectado por tecnologías compartidas y pueden verse como ASCII. El modo ASCII es un post-proceso en GPU: la escena se renderiza a un texel por celda de caracter y un shader elige el glifo según la luminancia. El texto, la navegación y la terminal son HTML.",
+      en: "This site. A Three.js scene with seven aluminium pieces, one per project, that separate into a map connected by shared technologies and can be viewed as ASCII. ASCII mode is a GPU post-process: the scene renders to one texel per character cell and a shader picks the glyph from its luminance. Text, navigation and the terminal are HTML.",
     },
-    flow: "escena ─▶ 1 texel/celda ─▶ atlas ─▶ glifo",
+    flow: "núcleo ─▶ sistemas ─▶ 1 texel/celda ─▶ glifo",
     highlights: [
       {
-        es: "Todo vive en la GPU: el AsciiEffect de los ejemplos de Three.js genera una tabla con miles de nodos del DOM y se arrastra.",
-        en: "It all lives on the GPU: the AsciiEffect from the Three.js examples builds a table with thousands of DOM nodes and crawls.",
+        es: "Los tres modos son estados del mismo objeto: las piezas viajan del anillo al grafo y el pase ASCII se aplica encima; no hay tres escenas.",
+        en: "The three modes are states of one object: the pieces travel from the ring to the graph and the ASCII pass sits on top; there are not three scenes.",
       },
       {
-        es: "El ASCII decorativo va oculto al lector de pantalla y el texto real se expone en paralelo.",
-        en: "Decorative ASCII is hidden from screen readers and the real text is exposed alongside it.",
+        es: "El ASCII vive entero en la GPU: el AsciiEffect de los ejemplos de Three.js genera una tabla con miles de nodos del DOM y se arrastra. Render a demanda, fallback sin WebGL y movimiento reducido real.",
+        en: "ASCII lives entirely on the GPU: the AsciiEffect from the Three.js examples builds a table with thousands of DOM nodes and crawls. On-demand rendering, a no-WebGL fallback and real reduced motion.",
       },
     ],
-    tags: ["Next.js", "Three.js", "GLSL", "TypeScript"],
+    tags: ["Next.js", "React", "Three.js", "GLSL", "TypeScript"],
     source: "https://github.com/Sebs14/seb-sys",
+  },
+];
+
+/* ── casos destacados ─────────────────────────────────────────
+   Presentación editorial de los dos proyectos `featured`. Todo el
+   texto reordena lo que ya dicen `description` y `highlights`: no hay
+   resultados nuevos. Si algún día se agrega una métrica, viene de
+   Sebastián, no de acá.                                            */
+
+export type CaseStudy = {
+  projectId: string;
+  /** El problema que resolvía el sistema. */
+  problem: Bi;
+  /** La decisión técnica que lo define. */
+  decision: Bi;
+  /** Evidencia disponible en el contenido; vacío si no hay. */
+  evidence: Bi[];
+  /** Etapas del esquema, en orden. Etiquetas reales del sistema. */
+  stages: Bi[];
+};
+
+export const caseStudies: CaseStudy[] = [
+  {
+    projectId: "fluidez-lectora",
+    problem: {
+      es: "Medir fluidez lectora oral en primaria a escala nacional: el estudiante graba una lectura desde una app móvil y docentes y directores necesitan ver el nivel de cada grado, no un archivo de audio.",
+      en: "Measuring oral reading fluency in primary school at national scale: the student records a reading from a mobile app, and teachers and principals need to see each grade's level, not an audio file.",
+    },
+    decision: {
+      es: "Un pipeline de audio asíncrono: subida firmada, cola de mensajes, un job aislado por audio y callback con el resultado. El panel del ministerio y la app del niño comparten una sola API con reglas de sesión distintas.",
+      en: "An asynchronous audio pipeline: signed upload, message queue, one isolated job per audio and a result callback. The ministry panel and the child's app share one API with different session rules.",
+    },
+    evidence: [
+      {
+        es: "Tres entornos con despliegue automático por rama; las promociones entre entornos las manejo yo.",
+        en: "Three environments with automatic per-branch deploys; I own the promotions between them.",
+      },
+    ],
+    stages: [
+      { es: "app", en: "app" },
+      { es: "storage", en: "storage" },
+      { es: "cola", en: "queue" },
+      { es: "motor IA", en: "AI engine" },
+      { es: "panel", en: "panel" },
+    ],
+  },
+  {
+    projectId: "gamificacion-lxp",
+    problem: {
+      es: "Puntos, insignias y una billetera canjeable por premios reales para una plataforma nacional de aprendizaje, con reglas que el negocio quiere cambiar sin esperar un despliegue.",
+      en: "Points, badges and a wallet redeemable for real prizes on a national learning platform, with rules the business wants to change without waiting for a deploy.",
+    },
+    decision: {
+      es: "El motor no tiene fórmulas fijas: cada regla es métrica + comparador + valor con su efecto y su ventana de tiempo, y se crea, apaga o borra desde el panel. Antes de publicar un cambio, una simulación en sombra muestra el costo en dinero y el delta de cada billetera; el sistema rechaza contradicciones y cita la regla en conflicto.",
+      en: "The engine has no hardcoded formulas: every rule is metric + comparator + value with its effect and time window, created, disabled or deleted from the panel. Before publishing a change, a shadow simulation shows the cost in money and every wallet's delta; the system rejects contradictions and names the conflicting rule.",
+    },
+    evidence: [
+      {
+        es: "Certificado contra la entrega del piloto: 0 diferencias en 1.3 millones de filas.",
+        en: "Certified against the pilot delivery: 0 mismatches across 1.3 million rows.",
+      },
+      {
+        es: "362 pruebas. Tres roles con el alcance impuesto en el servidor, no en la interfaz.",
+        en: "362 tests. Three roles with scope enforced on the server, not in the UI.",
+      },
+      {
+        es: "Configuración versionada con recálculo retroactivo y trinquete: lo ya ganado nunca baja.",
+        en: "Versioned config with retroactive recalculation and a ratchet: what was earned never goes down.",
+      },
+    ],
+    stages: [
+      { es: "ingesta", en: "ingest" },
+      { es: "reglas", en: "rules" },
+      { es: "XP", en: "XP" },
+      { es: "billetera", en: "wallet" },
+      { es: "canje", en: "redeem" },
+    ],
   },
 ];
 

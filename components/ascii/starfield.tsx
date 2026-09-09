@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { motionIsStill, onMotionChange } from "@/lib/use-motion-preference";
 
 /* ══════════════════════════════════════════════════════════════
    PARALLAX EN ESPACIO DE CARACTERES
@@ -38,9 +39,9 @@ type Layer = {
 };
 
 const LAYERS: Layer[] = [
-  { seed: 1337, density: 0.012, glyphs: ".", speed: 0.06, tilt: 1, className: "text-term-green-deep opacity-40" },
-  { seed: 4242, density: 0.008, glyphs: ".·:", speed: 0.16, tilt: 2, className: "text-term-green-deep opacity-70" },
-  { seed: 9001, density: 0.004, glyphs: "·+*°", speed: 0.34, tilt: 4, className: "text-term-green-dim opacity-50" },
+  { seed: 1337, density: 0.012, glyphs: ".", speed: 0.06, tilt: 1, className: "text-phosphor-deep opacity-40" },
+  { seed: 4242, density: 0.008, glyphs: ".·:", speed: 0.16, tilt: 2, className: "text-phosphor-deep opacity-70" },
+  { seed: 9001, density: 0.004, glyphs: "·+*°", speed: 0.34, tilt: 4, className: "text-phosphor-dim opacity-50" },
 ];
 
 /** Generador congruencial: determinista y suficiente para ruido visual. */
@@ -78,8 +79,6 @@ export function Starfield() {
     const ruler = rulerRef.current;
     if (!host || !ruler) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-
     let cellW = 8;
     let cellH = 21;
     let blobRows = 0;
@@ -93,10 +92,7 @@ export function Starfield() {
     // ── medición: la celda sale del ancho real de 20 glifos ──────
     const measure = () => {
       cellW = ruler.getBoundingClientRect().width / 20;
-      cellH =
-        parseFloat(
-          getComputedStyle(document.documentElement).getPropertyValue("--lh"),
-        ) || 21;
+      cellH = 21;
 
       const cols = Math.ceil(window.innerWidth / cellW) + 10;
       const rows = Math.ceil(window.innerHeight / cellH) + 2;
@@ -146,10 +142,22 @@ export function Starfield() {
     measure();
     paint();
 
-    if (!reduced.matches) {
+    let listening = false;
+    const listen = () => {
+      if (listening) return;
+      listening = true;
       window.addEventListener("scroll", schedule, { passive: true });
       window.addEventListener("pointermove", onPointer, { passive: true });
-    }
+    };
+    const unlisten = () => {
+      if (!listening) return;
+      listening = false;
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("pointermove", onPointer);
+    };
+    const syncMotion = () => (motionIsStill() ? unlisten() : listen());
+    syncMotion();
+    const offMotion = onMotionChange(syncMotion);
 
     // El remedido regenera los bloques: barato y evita huecos al rotar.
     let resizeTimer: ReturnType<typeof setTimeout>;
@@ -163,8 +171,8 @@ export function Starfield() {
     window.addEventListener("resize", onResize);
 
     return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("pointermove", onPointer);
+      offMotion();
+      unlisten();
       window.removeEventListener("resize", onResize);
       clearTimeout(resizeTimer);
       if (raf) cancelAnimationFrame(raf);
@@ -177,7 +185,7 @@ export function Starfield() {
       <span
         ref={rulerRef}
         aria-hidden
-        className="pointer-events-none invisible fixed left-0 top-0 whitespace-pre"
+        className="pointer-events-none invisible fixed left-0 top-0 whitespace-pre font-mono"
       >
         00000000000000000000
       </span>
@@ -190,7 +198,7 @@ export function Starfield() {
         {LAYERS.map((layer) => (
           <div
             key={layer.seed}
-            className={`absolute left-0 top-0 whitespace-pre leading-[var(--lh)] will-change-transform ${layer.className}`}
+            className={`absolute left-0 top-0 whitespace-pre font-mono text-[14px] leading-[21px] will-change-transform ${layer.className}`}
           />
         ))}
       </div>

@@ -1,0 +1,42 @@
+[
+  {
+    "mode": "core",
+    "fpsDuringTransition": 60,
+    "drawCalls": 14,
+    "triangles": 18284,
+    "dpr": 1.5,
+    "quality": "high",
+    "asciiCells": null
+  },
+  {
+    "mode": "systems",
+    "fpsDuringTransition": 60,
+    "drawCalls": 15,
+    "triangles": 18492,
+    "dpr": 1.5,
+    "quality": "high",
+    "asciiCells": null
+  },
+  {
+    "mode": "ascii",
+    "fpsDuringTransition": 60,
+    "drawCalls": 16,
+    "triangles": 18494,
+    "dpr": 1.5,
+    "quality": "high",
+    "asciiCells": {
+      "cols": 82,
+      "rows": 46
+    }
+  },
+  {
+    "drag": true,
+    "fpsWhileDragging": 59
+  },
+  {
+    "idleAfterSettle": 0,
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)",
+    "dpr": 1.5,
+    "viewport": "1440×900"
+  }
+]

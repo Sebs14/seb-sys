@@ -1,16 +1,25 @@
 {
-  "name": "my-space",
+  "name": "seb-sys",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "build:pages": "GITHUB_PAGES=true next build"
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "build:pages": "GITHUB_PAGES=true next build",
+    "serve:pages": "node scripts/serve-pages.mjs",
+    "check": "npm run lint && npm run typecheck && npm run test:unit && npm run build:pages"
   },
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11.6.0"
+  },
+  "packageManager": "npm@11.18.0",
   "dependencies": {
-    "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
     "motion": "^13.1.0",
     "next": "16.3.1",
@@ -19,14 +28,17 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^24.13.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.185.4",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.0"
   }
 }

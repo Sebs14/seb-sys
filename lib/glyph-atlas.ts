@@ -35,21 +35,34 @@ export type AtlasResult = {
 async function ensureFont(font: string): Promise<void> {
   if (typeof document === "undefined" || !("fonts" in document)) return;
   try {
-    await document.fonts.load(`700 64px "${font}"`);
+    await document.fonts.load(`700 64px ${font}`);
     await document.fonts.ready;
   } catch {
     // Si falla, seguimos: el fallback es feo pero no rompe nada.
   }
 }
 
+/**
+ * next/font registra JetBrains Mono con un nombre generado (algo como
+ * `__JetBrains_Mono_abc123`) y lo expone en la variable `--font-jetbrains`.
+ * Pedir "JetBrains Mono" a secas cargaría la fuente de reserva y el atlas
+ * saldría con otra métrica: leemos la variable real del documento.
+ */
+export function resolveMonoFamily(fallback = '"JetBrains Mono", monospace'): string {
+  if (typeof document === "undefined") return fallback;
+  const value = getComputedStyle(document.documentElement).getPropertyValue("--font-jetbrains").trim();
+  return value || fallback;
+}
+
 export async function buildGlyphAtlas({
   ramp = RAMP,
   cellHeight = 64,
-  fontFamily = "JetBrains Mono",
+  fontFamily = resolveMonoFamily(),
 }: {
   ramp?: string;
   /** alto de cada celda del atlas en px */
   cellHeight?: number;
+  /** lista de familias CSS, ya entrecomilladas si hace falta */
   fontFamily?: string;
 } = {}): Promise<AtlasResult> {
   await ensureFont(fontFamily);
@@ -69,7 +82,7 @@ export async function buildGlyphAtlas({
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "#fff";
-  ctx.font = `700 ${Math.round(ch * 0.82)}px "${fontFamily}", monospace`;
+  ctx.font = `700 ${Math.round(ch * 0.82)}px ${fontFamily}, monospace`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 

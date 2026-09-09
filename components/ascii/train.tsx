@@ -1,18 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { on } from "@/lib/bus";
+import { useEffect, useRef } from "react";
+import { motionIsStill } from "@/lib/use-motion-preference";
 
-/* ══════════════════════════════════════════════════════════════
-   sl — LA LOCOMOTORA
-
-   El chiste real de Unix, de los 80: te equivocás al escribir `ls`
-   y en vez de un error te cruza un tren por la terminal. Acá cruza
-   la página entera, en pasos de una celda como el gato y como el
-   parallax: lo que se mueve respeta la grilla.
-
-   Cruza una vez y se desmonta. No hay estado que limpiar después.
-   ══════════════════════════════════════════════════════════════ */
+/* sl — la locomotora de Unix cruza la página una vez y se va. */
 
 const ENGINE = [
   String.raw`      ====        ________                ___________`,
@@ -26,75 +17,58 @@ const ENGINE = [
   String.raw` |/-=|___|=O=====O=====O=====O   |_____/~\___/     `,
   String.raw`  \_/      \__/  \__/  \__/  \__/      \_/         `,
 ];
-
-/** ancho del dibujo en celdas */
 const TRAIN_COLS = 52;
 const STEP_MS = 42;
 
-export function Train() {
-  const [running, setRunning] = useState(false);
+export function Train({ onDone, closeLabel }: { onDone: () => void; closeLabel: string }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(
-    () =>
-      on((e) => {
-        if (e.type === "train") setRunning(true);
-      }),
-    [],
-  );
-
   useEffect(() => {
-    if (!running) return;
     const host = hostRef.current;
     const ruler = rulerRef.current;
     if (!host || !ruler) return;
-
     const cellW = ruler.getBoundingClientRect().width / 20;
-    // Entra por la derecha y sale por la izquierda, como el sl original.
     let col = Math.ceil(window.innerWidth / cellW) + 2;
     const end = -TRAIN_COLS - 2;
-
     const paint = () => {
       host.style.transform = `translate3d(${col * cellW}px, 0, 0)`;
     };
-    paint();
 
+    if (motionIsStill()) {
+      // Quieto en el centro, tres segundos, y se va.
+      col = Math.floor((window.innerWidth / cellW - TRAIN_COLS) / 2);
+      paint();
+      const stop = setTimeout(onDone, 3000);
+      return () => clearTimeout(stop);
+    }
+
+    paint();
     const timer = setInterval(() => {
       col -= 1;
       if (col <= end) {
         clearInterval(timer);
-        setRunning(false);
+        onDone();
         return;
       }
       paint();
     }, STEP_MS);
-
     return () => clearInterval(timer);
-  }, [running]);
-
-  if (!running) return null;
+  }, [onDone]);
 
   return (
     <>
-      <span
-        ref={rulerRef}
-        aria-hidden
-        className="pointer-events-none invisible fixed left-0 top-0 whitespace-pre"
-      >
+      <span ref={rulerRef} aria-hidden className="pointer-events-none invisible fixed left-0 top-0 whitespace-pre font-mono">
         00000000000000000000
       </span>
-      <div
-        aria-hidden
-        className="pointer-events-none fixed bottom-[calc(var(--lh)*2)] left-0 right-0 z-[70] select-none overflow-hidden"
-      >
-        <div
-          ref={hostRef}
-          className="glow w-max whitespace-pre leading-[var(--lh)] text-term-green will-change-transform"
-        >
+      <div className="pointer-events-none fixed bottom-24 left-0 right-0 z-[70] select-none overflow-hidden" aria-hidden>
+        <div ref={hostRef} className="w-max whitespace-pre font-mono text-[14px] leading-[21px] text-phosphor will-change-transform">
           {ENGINE.join("\n")}
         </div>
       </div>
+      <button type="button" onClick={onDone} className="btn btn-secondary btn-sm glass fixed right-4 top-24 z-[71]">
+        {closeLabel}
+      </button>
     </>
   );
 }

@@ -1,0 +1,42 @@
+[
+  {
+    "mode": "core",
+    "fpsDuringTransition": 60,
+    "drawCalls": 14,
+    "triangles": 18284,
+    "dpr": 1,
+    "quality": "high",
+    "asciiCells": null
+  },
+  {
+    "mode": "systems",
+    "fpsDuringTransition": 47,
+    "drawCalls": 15,
+    "triangles": 18492,
+    "dpr": 1,
+    "quality": "high",
+    "asciiCells": null
+  },
+  {
+    "mode": "ascii",
+    "fpsDuringTransition": 27,
+    "drawCalls": 16,
+    "triangles": 18494,
+    "dpr": 1,
+    "quality": "high",
+    "asciiCells": {
+      "cols": 82,
+      "rows": 46
+    }
+  },
+  {
+    "drag": true,
+    "fpsWhileDragging": 59
+  },
+  {
+    "idleAfterSettle": 0,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "dpr": 1,
+    "viewport": "1440×900"
+  }
+]

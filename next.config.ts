@@ -18,6 +18,10 @@ const forPages = process.env.GITHUB_PAGES === "true";
 const repo = "/seb-sys";
 
 const nextConfig: NextConfig = {
+  /* Las rutas escritas a mano hacia `public/` pasan por lib/base-path;
+     esta variable es lo que leen. Vacía en desarrollo. */
+  env: { NEXT_PUBLIC_BASE_PATH: forPages ? repo : "" },
+
   ...(forPages
     ? {
         output: "export" as const,
