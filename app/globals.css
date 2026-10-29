@@ -282,11 +282,13 @@ body {
   -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, transparent 100%);
 }
 
-/* Capa translúcida: sólo navegación y herramientas flotantes. */
+/* Capa translúcida: sólo navegación y herramientas flotantes.
+   Sólo la propiedad estándar: Lightning CSS agrega el prefijo -webkit-
+   para Safari. Escribir las dos hacía que se quedara SÓLO con la
+   prefijada, y Chrome no la entiende (el vidrio no desenfocaba). */
 @utility glass {
   background: rgb(12 12 15 / 0.86);
   backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
   border: 1px solid rgb(255 255 255 / 0.08);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 12px 32px -12px rgb(0 0 0 / 0.8);
 }
@@ -984,7 +986,6 @@ body {
   .glass {
     background: #0e0e11;
     backdrop-filter: none;
-    -webkit-backdrop-filter: none;
   }
 }
 
