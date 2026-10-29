@@ -45,9 +45,12 @@ test.describe("CAM-01: webcam", () => {
 
     const textures = () => page.evaluate(() => window.__sebStats?.textures ?? -1);
     // Las estadísticas se actualizan por cuadro: leer con la escena en
-    // pantalla y sólo cuando dos lecturas seguidas coinciden.
+    // pantalla, después de pedir un cuadro (pasar el puntero por el
+    // índice lo pide) y sólo cuando dos lecturas seguidas coinciden.
     const stable = async () => {
-      await page.evaluate(() => window.scrollTo({ top: 0 }));
+      await box.scrollIntoViewIfNeeded();
+      await page.getByRole("group", { name: /elegir proyecto|pick a project/i }).getByRole("button").first().hover();
+      await page.mouse.move(0, 0);
       let last = await textures();
       let quiet = 0;
       await expect

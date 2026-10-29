@@ -8,12 +8,12 @@ const ratio = (a, b) => {
   const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
   return ((hi + 0.05) / (lo + 0.05)).toFixed(2);
 };
-const surfaces = { base: "#090b0d", section: "#111417", raised: "#1a1e22" };
+const surfaces = { base: "#000000", section: "#060607", raised: "#0b0b0e" };
 const tokens = {
-  ink: "#f5f6f7", "ink-2": "#b8bec5", "ink-3": "#8f99a3", accent: "#9ef5b5",
-  "accent-strong": "#54df86", amber: "#ffd28b", error: "#ff9d9d", "phosphor-dim": "#3f9a63", stroke: "#303840",
+  ink: "#f5f5f7", "ink-2": "#a1a1a8", "ink-3": "#85858c", accent: "#5b8cff",
+  "accent-soft": "#b6d6ff", amber: "#ffd28b", error: "#ff9d9d", "phosphor-dim": "#3f9a63", stroke: "#1f1f24",
 };
 for (const [name, hex] of Object.entries(tokens)) {
   console.log(name.padEnd(14), ...Object.entries(surfaces).map(([s, sh]) => `${s} ${ratio(hex, sh)}`));
 }
-console.log("base on accent", ratio(surfaces.base, tokens.accent));
+console.log("primary text on ink", ratio("#0b0b10", tokens.ink));

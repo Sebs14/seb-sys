@@ -14,7 +14,7 @@ test.describe("INT-01 / INT-02: selección y modos", () => {
       const name = label.split(" — ")[0];
       await btn.click();
       await expect(btn).toHaveAttribute("aria-pressed", "true");
-      await expect(preview.getByRole("heading", { level: 2 })).toHaveText(name);
+      await expect(preview.getByRole("heading", { level: 3 })).toHaveText(name);
       await expect(preview).toContainText(/pieza \d de 7|piece \d of 7/);
     }
   });
@@ -49,10 +49,10 @@ test.describe("INT-01 / INT-02: selección y modos", () => {
     await expect(systems).toHaveAttribute("aria-pressed", "true");
     await expect(core).toHaveAttribute("aria-pressed", "false");
     await expect(ascii).toHaveAttribute("aria-pressed", "false");
-    await expect(page.locator("canvas")).toHaveCount(1);
+    await expect(page.locator(".scene-box canvas")).toHaveCount(1);
     await ascii.click();
     await expect(ascii).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator("canvas")).toHaveCount(1);
+    await expect(page.locator(".scene-box canvas")).toHaveCount(1);
   });
 
   test("Pausar y Restablecer siguen permitiendo elegir proyectos", async ({ page }) => {
@@ -64,7 +64,7 @@ test.describe("INT-01 / INT-02: selección y modos", () => {
     await page.getByRole("button", { name: /restablecer vista|reset view/i }).click();
     const group = page.getByRole("group", { name: /elegir proyecto|pick a project/i });
     await group.getByRole("button", { name: /seb\.sys/ }).click();
-    await expect(page.locator('[aria-live="polite"][aria-atomic="true"] h2')).toHaveText("seb.sys");
+    await expect(page.locator('[aria-live="polite"][aria-atomic="true"] h3')).toHaveText("seb.sys");
   });
 
   test("la escena reposa tras la interacción (render a demanda)", async ({ page }) => {

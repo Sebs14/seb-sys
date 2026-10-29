@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { clsx } from "@/lib/clsx";
 
-/** Encabezado editorial: título grande, lead corto, alineado a la izquierda. */
+/** Encabezado editorial: título grande, lead corto, alineado a la izquierda.
+    El antetítulo lleva la misma marca que el índice con regla. */
 export function SectionHeader({
   id,
   eyebrow,
@@ -19,7 +20,12 @@ export function SectionHeader({
 }) {
   return (
     <div className={clsx("mb-10 md:mb-14", className)}>
-      {eyebrow && <p className="t-meta mb-3 uppercase text-ink-3">{eyebrow}</p>}
+      {eyebrow && (
+        <p className="t-ui mb-4 flex items-center gap-3 text-ink-3">
+          <span aria-hidden className="h-px w-6 bg-accent" />
+          {eyebrow}
+        </p>
+      )}
       <h2 id={id} className="t-h2 text-ink">
         {title}
       </h2>

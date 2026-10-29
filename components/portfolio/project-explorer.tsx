@@ -10,36 +10,39 @@ import { clsx } from "@/lib/clsx";
 /* ══════════════════════════════════════════════════════════════
    EXPLORADOR: la alternativa HTML de la escena
 
-   Siete botones, uno por pieza, con aria-pressed. Es el camino de
-   teclado y sin WebGL, y es la misma selección que la escultura: una
-   sola fuente de verdad. Pasar el puntero sólo resalta; no cambia la
-   selección hecha con teclado.
+   Siete botones, uno por pieza, con aria-pressed, dibujados como una
+   regla: la marca del elegido se alarga. Es el camino de teclado y sin
+   WebGL, y es la misma selección que la escultura: una sola fuente de
+   verdad. Pasar el puntero sólo resalta; no cambia la selección hecha
+   con teclado.
    ══════════════════════════════════════════════════════════════ */
 
-export function ProjectChips({ className }: { className?: string }) {
+export function ProjectIndex({ className }: { className?: string }) {
   const { t } = useLang();
   const { selectedId, select, setHovered } = usePortfolio();
   return (
-    <div role="group" aria-label={t("scene.pickProject")} className={clsx("flex flex-wrap gap-2", className)}>
-      {projects.map((p, i) => (
-        <button
-          key={p.id}
-          type="button"
-          aria-pressed={selectedId === p.id}
-          onClick={() => select(p.id)}
-          onPointerEnter={() => setHovered(p.id)}
-          onPointerLeave={() => setHovered(null)}
-          onFocus={() => setHovered(p.id)}
-          onBlur={() => setHovered(null)}
-          className="btn btn-secondary btn-sm !px-3.5"
-          aria-label={`${p.name} — ${t("scene.pieceOf", { n: i + 1, total: projects.length })}`}
-        >
-          <span aria-hidden className="chip-index">
-            {String(i + 1).padStart(2, "0")}
-          </span>
-          {p.name}
-        </button>
-      ))}
+    <div className={className}>
+      <div role="group" aria-label={t("scene.pickProject")} className="ruler">
+        {projects.map((p, i) => (
+          <button
+            key={p.id}
+            type="button"
+            aria-pressed={selectedId === p.id}
+            onClick={() => select(p.id)}
+            onPointerEnter={() => setHovered(p.id)}
+            onPointerLeave={() => setHovered(null)}
+            onFocus={() => setHovered(p.id)}
+            onBlur={() => setHovered(null)}
+            className="ruler-item"
+            aria-label={`${p.name} — ${t("scene.pieceOf", { n: i + 1, total: projects.length })}`}
+          >
+            <span aria-hidden className="chip-index">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="truncate">{p.name}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -52,17 +55,23 @@ export function ProjectPreview({ className }: { className?: string }) {
   const connections = connectionsOf(graph, project.id);
 
   return (
-    <div className={clsx("panel min-h-[13.5rem] p-5 md:p-6", className)} aria-live="polite" aria-atomic="true">
-      <p className="t-meta uppercase text-ink-3">
-        {t("scene.selected")} · {t("scene.pieceOf", { n: index + 1, total: projects.length })}
-      </p>
-      <h2 className="t-h3 mt-2 text-ink">{project.name}</h2>
-      <p className="t-small mt-1 text-ink-3">
-        {b(project.org)} · {project.year}
-      </p>
-      <p className="t-body mt-3 text-ink-2">{b(project.tagline)}</p>
+    <div
+      className={clsx("grid content-start gap-x-10 gap-y-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_auto]", className)}
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div>
+        <p className="t-meta uppercase text-ink-3">
+          {t("scene.selected")} · {t("scene.pieceOf", { n: index + 1, total: projects.length })}
+        </p>
+        <h3 className="t-h3 mt-3 text-ink">{project.name}</h3>
+        <p className="t-small mt-1 text-ink-3">
+          {b(project.org)} · {project.year}
+        </p>
+        <p className="t-small mt-2 text-ink-2">{b(project.tagline)}</p>
+      </div>
 
-      <p className="t-small mt-3 text-ink-3">
+      <p className="t-small text-ink-3 md:pt-7">
         {connections.length ? (
           <>
             {t("scene.sharesWith")}{" "}
@@ -79,7 +88,7 @@ export function ProjectPreview({ className }: { className?: string }) {
         )}
       </p>
 
-      <div className="mt-5 flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 md:col-span-2 lg:col-span-1 lg:flex-col lg:items-stretch lg:pt-7">
         <button type="button" className="btn btn-primary btn-sm" onClick={() => openProject(project.id)}>
           {t("scene.viewProject")}
         </button>

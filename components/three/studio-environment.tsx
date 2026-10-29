@@ -44,10 +44,10 @@ function buildRoom(): THREE.Scene {
   panel("#dfe9ff", 4.5, [1.6, 6], [-6.4, 0.6, 1.5]);
   // Relleno cálido bajo, a la derecha: evita el negro total en la panza.
   panel("#ffe9d2", 1.8, [5, 1.2], [4.5, -3.8, 2.5]);
-  // Tira de fósforo muy tenue detrás: un guiño al acento, nunca neón.
-  panel("#9ef5b5", 0.35, [6, 0.5], [0, -1.2, -6.6]);
+  // Tira de cobalto muy tenue detrás: un guiño al acento, nunca neón.
+  panel("#5b8cff", 0.35, [6, 0.5], [0, -1.2, -6.6]);
   // Panel oscuro frontal: el reflejo del "espectador", casi negro.
-  panel("#0a0c0f", 1, [6, 4], [0, 0, 6.8]);
+  panel("#050506", 1, [6, 4], [0, 0, 6.8]);
 
   return room;
 }

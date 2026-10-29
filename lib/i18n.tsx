@@ -32,6 +32,13 @@ const UI = {
   "hero.viewProjects": { es: "Ver proyectos", en: "View projects" },
   "hero.contact": { es: "Contactarme", en: "Get in touch" },
 
+  "explore.eyebrow": { es: "Explorar", en: "Explore" },
+  "explore.title": { es: "Siete proyectos, una pieza cada uno.", en: "Seven projects, one piece each." },
+  "explore.lead": {
+    es: "Cada arco de la escultura es un proyecto real. Separalos y aparecen las tecnologías que comparten.",
+    en: "Each arc of the sculpture is a real project. Pull them apart and the technologies they share appear.",
+  },
+
   "scene.label": {
     es: "Escultura interactiva de siete piezas de aluminio, una por proyecto",
     en: "Interactive sculpture of seven aluminium pieces, one per project",

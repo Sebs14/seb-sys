@@ -26,6 +26,10 @@ Nombre: seb.sys. El usuario pide una página más entretenida, con personalidad,
 
 Rediseño completo: portada editorial con escultura de siete piezas (Núcleo / Sistemas / ASCII), dos casos destacados con esquema del sistema, lista de proyectos con detalle accesible, stack con evidencia por proyecto, experiencia, laboratorio voluntario y contacto. Terminal refactorizada (parser, historial y comandos puros con pruebas). Instalación reproducible (Node 24, lockfile válido con npm 11.18), lint y tipos en verde, Vitest y Playwright, CI de validación. Ver `DESIGN.md` y `README.md`.
 
+## Delivered (2026-10-28)
+
+Rediseño visual con la estética de Planes (useplanes.com), con todos los efectos escritos en el proyecto, sin instalar componentes: negro puro, tipografía apretada, un acento cobalto, botón primario blanco y tarjetas de doble bisel. Portada tipográfica con titular líquido WebGL propio (seda dentro de las letras, cambia de paleta con un clic). La escultura pasó a un escenario con índice de proyectos en forma de regla. Contacto con el nombre en aluminio líquido y la marca grande en el pie. Ver `DESIGN.md`.
+
 ## Evidence on Hand
 
 `lib/content.ts` contiene proyectos, descripciones, tecnologías, contribuciones y trayectoria. El sitio existente incluye un mapa de proyectos conectado por tecnologías compartidas y una terminal. La revisión reprodujo el fallo de recuperación WebGL y el atasco del historial después de pulsar flecha abajo.

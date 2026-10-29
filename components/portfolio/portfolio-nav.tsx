@@ -8,10 +8,11 @@ import { emit } from "@/lib/bus";
 /* ══════════════════════════════════════════════════════════════
    NAVEGACIÓN
 
-   Barra flotante translúcida (la única capa con blur junto con la
-   terminal). Escritorio: marca, tres enlaces, idioma y Contacto.
-   Móvil: marca, idioma y Menú; el menú es un disclosure no modal que
-   empuja el contenido, se cierra con Escape y devuelve el foco.
+   Una píldora translúcida centrada (la única capa con blur junto con
+   la terminal). Escritorio: marca, enlaces, idioma, terminal y
+   Contacto, separados por filetes. Móvil: la barra ocupa el ancho con
+   marca, idioma y Menú; el menú es un disclosure no modal que empuja
+   el contenido, se cierra con Escape y devuelve el foco.
    La sección activa se marca con `aria-current` y un texto oculto.
    ══════════════════════════════════════════════════════════════ */
 
@@ -30,11 +31,13 @@ export function PortfolioNav() {
   const menuButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const ids = [...LINKS.map((l) => l.id), "contact", "stack"];
-    const targets = ids
-      .map((id) => document.getElementById(id))
+    const ids = [...LINKS.map((l) => l.id), "explore", "contact", "stack"];
+    // La portada también se observa: al volver a ella no queda nada marcado.
+    const targets = [document.querySelector<HTMLElement>(".hero"), ...ids.map((id) => document.getElementById(id))]
       .filter((el): el is HTMLElement => !!el);
     if (!targets.length) return;
+    // El stack vive dentro de Enfoque; el escenario, dentro de Proyectos.
+    const parent: Record<string, string> = { stack: "about", explore: "work" };
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -42,8 +45,7 @@ export function PortfolioNav() {
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
         if (visible[0]) {
           const id = visible[0].target.id;
-          // El stack vive dentro de Enfoque en la navegación.
-          setActive(id === "stack" ? "about" : id);
+          setActive(parent[id] ?? id);
           return;
         }
         if (window.scrollY < 200) setActive("");
@@ -84,22 +86,26 @@ export function PortfolioNav() {
   };
 
   return (
-    <header className="sticky top-0 z-50 pt-4 md:pt-6">
+    <header className="sticky top-0 z-50 pt-3 md:pt-4">
       <div className="container-x">
-        <div className="glass rounded-[var(--radius-panel)] px-2 sm:px-3">
-          <div className="flex h-[var(--nav-height)] items-center gap-1">
+        <div className="glass nav-bar flex-wrap !h-auto rounded-[16px] md:flex-nowrap">
+          <div className="flex h-[var(--nav-height)] w-full items-center gap-0.5 md:w-auto">
             <a
               href="#main"
-              className="nav-link mr-auto pl-3 font-semibold tracking-tight text-ink"
+              className="nav-link mr-auto gap-2 !px-2.5 font-semibold tracking-tight text-ink md:mr-0"
               aria-label="seb.sys — inicio"
             >
-              <span aria-hidden className="mr-2 inline-block h-2.5 w-2.5 rounded-full bg-accent" />
+              <LogoMark />
               seb.sys
             </a>
 
-            <nav aria-label={t("nav.label")} className="hidden items-center gap-1 md:flex">
+            <span aria-hidden className="nav-sep hidden md:block" />
+
+            <nav aria-label={t("nav.label")} className="hidden items-center gap-0.5 md:flex">
               {LINKS.map((l) => link(l.id, l.key))}
             </nav>
+
+            <span aria-hidden className="nav-sep hidden md:block" />
 
             <button
               type="button"
@@ -122,13 +128,13 @@ export function PortfolioNav() {
               aria-label={t("term.open")}
               onClick={() => emit({ type: "terminal", open: true })}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M4 17l6-5-6-5" />
                 <path d="M12 19h8" />
               </svg>
             </button>
 
-            <a href="#contact" className="btn btn-primary btn-sm hidden md:inline-flex">
+            <a href="#contact" className="btn btn-primary ml-1 hidden !min-h-9 !rounded-[9px] !px-3.5 !text-[0.875rem] md:inline-flex">
               {t("nav.contact")}
             </a>
 
@@ -149,17 +155,16 @@ export function PortfolioNav() {
                   </>
                 ) : (
                   <>
-                    <path d="M4 7h16" />
-                    <path d="M4 12h16" />
-                    <path d="M4 17h16" />
+                    <path d="M4 8h16" />
+                    <path d="M4 16h16" />
                   </>
                 )}
               </svg>
             </button>
           </div>
 
-          <div id={menuId} hidden={!open} className="md:hidden">
-            <nav aria-label={t("nav.menu")} className="flex flex-col gap-1 border-t border-stroke py-3">
+          <div id={menuId} hidden={!open} className="w-full md:hidden">
+            <nav aria-label={t("nav.menu")} className="flex flex-col gap-1 border-t border-stroke px-1 py-3">
               {LINKS.map((l) => link(l.id, l.key, "min-h-12 text-[1.0625rem]"))}
               {link("contact", "nav.contact", "min-h-12 text-[1.0625rem]")}
               <button
@@ -177,5 +182,25 @@ export function PortfolioNav() {
         </div>
       </div>
     </header>
+  );
+}
+
+/* La marca: los siete arcos de la escultura, uno en el acento. */
+function LogoMark() {
+  const arcs = [
+    "M32 11 A21 21 0 0 1 49.6 20.7",
+    "M51.9 24.9 A21 21 0 0 1 52.3 36.1",
+    "M51 40.6 A21 21 0 0 1 43.3 49.4",
+    "M39.1 52 A21 21 0 0 1 24.9 52",
+    "M20.7 49.4 A21 21 0 0 1 13 40.6",
+    "M11.7 36.1 A21 21 0 0 1 12.1 24.9",
+    "M14.4 20.7 A21 21 0 0 1 27.5 11.5",
+  ];
+  return (
+    <svg aria-hidden width="18" height="18" viewBox="0 0 64 64" fill="none" strokeWidth="8">
+      {arcs.map((d, i) => (
+        <path key={d} d={d} stroke={i === arcs.length - 1 ? "var(--color-accent)" : "currentColor"} opacity={i === arcs.length - 1 ? 1 : 0.55 + (i % 3) * 0.15} />
+      ))}
+    </svg>
   );
 }

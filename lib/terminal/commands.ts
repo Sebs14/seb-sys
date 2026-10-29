@@ -20,6 +20,7 @@ export type CommandContext = {
 
 /** Alias por sección, en los dos idiomas: `cd proyectos` y `cd work`. */
 export const SECTIONS: { id: string; aliases: string[] }[] = [
+  { id: "explore", aliases: ["explore", "explorar", "escultura", "sculpture"] },
   { id: "work", aliases: ["work", "proyectos", "projects", "trabajo"] },
   { id: "about", aliases: ["about", "enfoque", "sobre_mi", "sobre", "approach"] },
   { id: "stack", aliases: ["stack", "tecnologias", "tech"] },

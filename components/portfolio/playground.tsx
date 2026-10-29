@@ -33,10 +33,13 @@ export function Playground() {
     [],
   );
 
-  const goTop = () => window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+  // La escena vive en el escenario: llevar ahí al visitante para que vea el cambio.
+  const goToScene = () =>
+    document.getElementById("explore")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" });
 
   return (
-    <section id="lab" className="section-y bg-section" aria-labelledby="lab-title">
+    <section id="lab" className="section-y relative isolate" aria-labelledby="lab-title">
+      <div aria-hidden className="dot-field absolute inset-0 -z-10" />
       <div className="container-x">
         <SectionHeader id="lab-title" eyebrow={t("nav.lab")} title={t("lab.title")} lead={t("lab.lead")} />
         {reduced && <p className="t-small mb-6 text-amber">{t("lab.reduced")}</p>}
@@ -54,7 +57,7 @@ export function Playground() {
             action={t("lab.ascii")}
             onClick={() => {
               setMode("ascii");
-              goTop();
+              goToScene();
             }}
           />
           <LabCard
@@ -67,7 +70,7 @@ export function Playground() {
               emit({ type: "webcam", on: next });
               if (next) {
                 setWebcamOn(true);
-                goTop();
+                goToScene();
               }
             }}
           />
@@ -97,7 +100,7 @@ export function Playground() {
 
         <div id="lab-commands" className="disclosure" data-open={showCommands}>
           <div>
-            <dl className="terminal mt-6 grid gap-x-8 gap-y-2 rounded-[var(--radius-panel)] border border-stroke bg-base p-6 sm:grid-cols-2">
+            <dl className="terminal mt-6 grid gap-x-8 gap-y-2 rounded-[var(--radius-panel)] border border-stroke bg-raised p-6 sm:grid-cols-2">
               {HELP.map((h) => (
                 <div key={h.cmd} className="flex gap-4">
                   <dt className="shrink-0 text-phosphor">{h.cmd}</dt>
@@ -128,8 +131,8 @@ function LabCard({
   controls?: string;
 }) {
   return (
-    <div className="panel flex flex-col p-5">
-      <h3 className="t-body font-semibold text-ink">{title}</h3>
+    <div className="panel flex flex-col p-5 transition-colors duration-300 hover:border-white/15">
+      <h3 className="t-body font-semibold tracking-[-0.015em] text-ink">{title}</h3>
       <p className="t-small mt-2 flex-1 text-ink-3">{body}</p>
       <button
         type="button"

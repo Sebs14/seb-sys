@@ -18,7 +18,7 @@ import { SectionHeader } from "./section-header";
    mismo flujo con un disclosure accesible.
    ══════════════════════════════════════════════════════════════ */
 
-function SystemSchematic({ study, project, flip }: { study: CaseStudy; project: Project; flip: boolean }) {
+function SystemSchematic({ study, project }: { study: CaseStudy; project: Project }) {
   const { b, t } = useLang();
   const stages = study.stages.map(b);
   const n = stages.length;
@@ -30,51 +30,53 @@ function SystemSchematic({ study, project, flip }: { study: CaseStudy; project: 
   const yFor = (i: number) => (i % 2 === 0 ? 96 : 190);
 
   return (
-    <figure className={clsx("panel-soft overflow-hidden p-5 md:p-7", flip && "lg:order-first")}>
-      <figcaption className="t-meta mb-4 flex items-center justify-between uppercase text-ink-3">
-        <span>{t("work.diagram")}</span>
-        <span>{project.year}</span>
-      </figcaption>
-      <svg viewBox={`0 0 ${w} ${h}`} className="h-auto w-full" role="img" aria-label={`${t("work.diagram")}: ${stages.join(" → ")}`}>
-        <defs>
-          <marker id={`arrow-${project.id}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-            <path d="M0 0L10 5 0 10z" fill="#8f99a3" />
-          </marker>
-          <linearGradient id={`plate-${project.id}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#262b30" />
-            <stop offset="1" stopColor="#15191c" />
-          </linearGradient>
-        </defs>
-        {/* riel de referencia */}
-        <line x1={padX} y1={h - 40} x2={w - padX} y2={h - 40} stroke="#303840" strokeDasharray="2 6" />
-        {stages.map((label, i) => {
-          const x = padX + i * gapX;
-          const y = yFor(i);
-          const next = i < n - 1 ? { x: padX + (i + 1) * gapX, y: yFor(i + 1) } : null;
-          return (
-            <g key={label + i}>
-              {next && (
-                <path
-                  d={`M ${x + 34} ${y} C ${x + gapX / 2} ${y}, ${x + gapX / 2} ${next.y}, ${next.x - 36} ${next.y}`}
-                  fill="none"
-                  stroke="#8f99a3"
-                  strokeWidth="1.5"
-                  markerEnd={`url(#arrow-${project.id})`}
-                />
-              )}
-              <circle cx={x} cy={y} r="30" fill={`url(#plate-${project.id})`} stroke={i === 3 ? "#9ef5b5" : "#3a434c"} strokeWidth={i === 3 ? 1.5 : 1} />
-              <circle cx={x} cy={y} r="8" fill={i === 3 ? "#9ef5b5" : "#b8bec5"} />
-              <text x={x} y={y + 54} textAnchor="middle" fill="#f5f6f7" fontSize="14" fontFamily="var(--font-mono)">
-                {label}
-              </text>
-              <text x={x} y={h - 20} textAnchor="middle" fill="#8f99a3" fontSize="11" fontFamily="var(--font-mono)">
-                {String(i + 1).padStart(2, "0")}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
-    </figure>
+    <div className="bezel">
+      <figure className="bezel-core p-5 md:p-7">
+        <figcaption className="t-meta mb-4 flex items-center justify-between uppercase text-ink-3">
+          <span>{t("work.diagram")}</span>
+          <span>{project.year}</span>
+        </figcaption>
+        <svg viewBox={`0 0 ${w} ${h}`} className="h-auto w-full" role="img" aria-label={`${t("work.diagram")}: ${stages.join(" → ")}`}>
+          <defs>
+            <marker id={`arrow-${project.id}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M0 0L10 5 0 10z" fill="#85858c" />
+            </marker>
+            <linearGradient id={`plate-${project.id}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#1d1d22" />
+              <stop offset="1" stopColor="#0e0e11" />
+            </linearGradient>
+          </defs>
+          {/* riel de referencia */}
+          <line x1={padX} y1={h - 40} x2={w - padX} y2={h - 40} stroke="#26262c" strokeDasharray="2 6" />
+          {stages.map((label, i) => {
+            const x = padX + i * gapX;
+            const y = yFor(i);
+            const next = i < n - 1 ? { x: padX + (i + 1) * gapX, y: yFor(i + 1) } : null;
+            return (
+              <g key={label + i}>
+                {next && (
+                  <path
+                    d={`M ${x + 34} ${y} C ${x + gapX / 2} ${y}, ${x + gapX / 2} ${next.y}, ${next.x - 36} ${next.y}`}
+                    fill="none"
+                    stroke="#55555c"
+                    strokeWidth="1.5"
+                    markerEnd={`url(#arrow-${project.id})`}
+                  />
+                )}
+                <circle cx={x} cy={y} r="30" fill={`url(#plate-${project.id})`} stroke={i === 3 ? "#5b8cff" : "#2e2e35"} strokeWidth={i === 3 ? 1.5 : 1} />
+                <circle cx={x} cy={y} r="8" fill={i === 3 ? "#5b8cff" : "#a1a1a8"} />
+                <text x={x} y={y + 54} textAnchor="middle" fill="#f5f5f7" fontSize="14" fontFamily="var(--font-mono)">
+                  {label}
+                </text>
+                <text x={x} y={h - 20} textAnchor="middle" fill="#85858c" fontSize="11" fontFamily="var(--font-mono)">
+                  {String(i + 1).padStart(2, "0")}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+      </figure>
+    </div>
   );
 }
 
@@ -130,7 +132,7 @@ function CaseBlock({ study, index }: { study: CaseStudy; index: number }) {
                 <ul className="space-y-2">
                   {study.evidence.map((e, i) => (
                     <li key={i} className={clsx("measure flex gap-3 text-ink-2", i === 0 ? "t-lead text-ink" : "t-small")}>
-                      <span aria-hidden className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <span aria-hidden className="tick" />
                       <span>{b(e)}</span>
                     </li>
                   ))}
@@ -169,7 +171,7 @@ function CaseBlock({ study, index }: { study: CaseStudy; index: number }) {
       </div>
 
       <div className={clsx("lg:sticky lg:top-28", flip && "lg:order-first")}>
-        <SystemSchematic study={study} project={project} flip={flip} />
+        <SystemSchematic study={study} project={project} />
         <div className="mt-4">
           <FlowDiagram labels={study.stages.map(b)} />
         </div>

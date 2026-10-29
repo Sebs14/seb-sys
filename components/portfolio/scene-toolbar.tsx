@@ -5,11 +5,12 @@ import { useLang } from "@/lib/i18n";
 import { useMotionPreference } from "@/lib/use-motion-preference";
 import { SCENE_MODES, type SceneMode } from "@/lib/scene-types";
 import type { SceneApi } from "@/components/three/portfolio-scene";
+import { clsx } from "@/lib/clsx";
 
 /* Selector Núcleo / Sistemas / ASCII + Pausar + Restablecer. Grupo de
    botones con aria-pressed: sin tabs a medias. La caja de layout es la
    misma en todos los estados. */
-export function SceneToolbar({ apiRef }: { apiRef: React.RefObject<SceneApi | null> }) {
+export function SceneToolbar({ apiRef, className }: { apiRef: React.RefObject<SceneApi | null>; className?: string }) {
   const { t } = useLang();
   const { mode, setMode, webcamOn, setWebcamOn, webcamStatus, setWebcamStatus } = usePortfolio();
   const { paused, reduced, setPaused } = useMotionPreference();
@@ -22,8 +23,8 @@ export function SceneToolbar({ apiRef }: { apiRef: React.RefObject<SceneApi | nu
   };
 
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-3">
-      <div className="segmented" role="group" aria-label={t("scene.modes")}>
+    <div className={clsx("flex flex-wrap content-start items-center gap-x-1 gap-y-3", className)}>
+      <div className="segmented mr-2" role="group" aria-label={t("scene.modes")}>
         {SCENE_MODES.map((m) => (
           <button
             key={m}
@@ -64,7 +65,7 @@ export function SceneToolbar({ apiRef }: { apiRef: React.RefObject<SceneApi | nu
         </button>
       </div>
 
-      <p className="t-small basis-full text-ink-3" role="status">
+      <p className="t-small basis-full text-ink-3 lg:min-h-[3.2em]" role="status">
         {webcamStatus !== "inactive"
           ? t(`cam.${webcamStatus}` as "cam.live")
           : mode === "core"

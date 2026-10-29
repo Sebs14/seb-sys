@@ -1,6 +1,7 @@
 import { PortfolioProvider } from "@/components/portfolio/portfolio-state";
 import { PortfolioNav } from "@/components/portfolio/portfolio-nav";
 import { Hero } from "@/components/portfolio/hero";
+import { Explorer } from "@/components/portfolio/explorer";
 import { FeaturedCases } from "@/components/portfolio/project-case";
 import { ProjectList } from "@/components/portfolio/project-list";
 import { Approach } from "@/components/portfolio/approach";
@@ -17,6 +18,7 @@ export default function Home() {
       <PortfolioNav />
       <main id="main">
         <Hero />
+        <Explorer />
         <FeaturedCases />
         <ProjectList />
         <Approach />

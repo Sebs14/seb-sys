@@ -65,7 +65,7 @@ export function SceneFallback({
             {i === selectedIndex && (
               <path
                 d={arcPath(cx, cy, r + 13, a0 + 0.04, a0 + 0.16)}
-                stroke="#54df86"
+                stroke="#5b8cff"
                 strokeWidth={4}
                 fill="none"
               />

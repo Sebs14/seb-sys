@@ -25,7 +25,7 @@ export function ProjectDetail({ project, showDescription = true }: { project: Pr
           <ul className="space-y-3">
             {project.highlights.map((h, i) => (
               <li key={i} className="t-small flex gap-3 text-ink-2">
-                <span aria-hidden className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <span aria-hidden className="tick" />
                 <span className="measure">{b(h)}</span>
               </li>
             ))}

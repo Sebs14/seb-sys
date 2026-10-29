@@ -27,8 +27,8 @@ import type { Rig } from "./scene-rig";
    ══════════════════════════════════════════════════════════════ */
 
 const ALUMINIUM = "#dde2e7";
-const ACCENT = "#9ef5b5";
-const ACCENT_STRONG = "#54df86";
+const ACCENT = "#5b8cff";
+const ACCENT_STRONG = "#2f6bff";
 const EDGE_DIM = "#6b7785";
 
 type PieceState = {

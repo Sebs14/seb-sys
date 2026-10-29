@@ -1,59 +1,51 @@
 "use client";
 
-import { useRef } from "react";
+import { useCallback, useState, type CSSProperties } from "react";
 import { useLang } from "@/lib/i18n";
 import { identity, hero } from "@/lib/content";
-import { SceneShell } from "@/components/three/scene-shell";
-import type { SceneApi } from "@/components/three/portfolio-scene";
-import { SceneToolbar } from "./scene-toolbar";
-import { ProjectChips, ProjectPreview } from "./project-explorer";
+import { LiquidHeadline, PALETTES, type LiquidPalette } from "@/components/fx/liquid-headline";
 
 /* ══════════════════════════════════════════════════════════════
    PORTADA
 
-   Una composición por viewport: texto a la izquierda (440–480 px),
-   escultura a la derecha (~60 % del ancho). Nombre, rol, título y CTA
-   son HTML visibles desde el primer render; la escena llega después y
-   no mueve nada.
+   Una sola idea por pantalla: el titular ES la imagen. Nombre y rol
+   arriba, el titular líquido al centro, la bajada y dos acciones.
+   Detrás, un resplandor que toma el color de la paleta activa y una
+   retícula de puntos que se disuelve. Todo el texto es HTML desde el
+   primer render; el WebGL llega encima y no mueve nada.
    ══════════════════════════════════════════════════════════════ */
 
 export function Hero() {
   const { b, t } = useLang();
-  const apiRef = useRef<SceneApi | null>(null);
+  const [glow, setGlow] = useState<string>(PALETTES[0][1]);
+  const onPalette = useCallback((p: LiquidPalette) => setGlow(p[1]), []);
 
   return (
-    <section className="hero container-x" aria-labelledby="hero-title">
-      <div className="hero-grid">
-        <div className="hero-copy">
-          <p className="t-ui text-ink-2">
-            <span className="text-ink">{identity.name}</span>
-            <span aria-hidden className="mx-2 text-ink-3">
-              ·
-            </span>
-            {b(identity.role)}
-          </p>
-          <h1 id="hero-title" className="t-display mt-5 text-ink">
-            {b(hero.lines[0])}
-          </h1>
-          <p className="t-lead measure-narrow mt-6 text-ink-2">{b(hero.lines[1])}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#work" className="btn btn-primary">
-              {t("hero.viewProjects")}
-            </a>
-            <a href="#contact" className="btn btn-secondary">
-              {t("hero.contact")}
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-scene">
-          <SceneShell className="hero-scene-box" apiRef={apiRef} />
-          <SceneToolbar apiRef={apiRef} />
-          <ProjectChips className="mt-5" />
-        </div>
-
-        <div className="hero-preview">
-          <ProjectPreview />
+    <section className="hero" aria-labelledby="hero-title" style={{ "--glow": glow } as CSSProperties}>
+      <div aria-hidden className="hero-backdrop" />
+      <div className="container-x">
+        <p className="hero-kicker t-ui">
+          <span className="text-ink">{identity.name}</span>
+          <span aria-hidden className="text-ink-3">
+            ·
+          </span>
+          {b(identity.role)}
+        </p>
+        <LiquidHeadline
+          id="hero-title"
+          lines={hero.headline.map(b)}
+          palettes={PALETTES}
+          onPaletteChange={onPalette}
+          className="mt-7"
+        />
+        <p className="t-lead hero-lead mt-7 text-ink-2">{b(hero.lead)}</p>
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <a href="#work" className="btn btn-primary">
+            {t("hero.viewProjects")}
+          </a>
+          <a href="#contact" className="btn btn-secondary">
+            {t("hero.contact")}
+          </a>
         </div>
       </div>
     </section>

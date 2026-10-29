@@ -25,7 +25,7 @@ export function Approach() {
   const count = (n: number) => (n === 1 ? t("stack.projectsOne") : t("stack.projectsMany", { n }));
 
   return (
-    <section id="about" className="section-y bg-section" aria-labelledby="about-title">
+    <section id="about" className="section-y" aria-labelledby="about-title">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-20">
           <div>
@@ -39,16 +39,18 @@ export function Approach() {
             </div>
           </div>
 
-          <aside className="panel self-start p-6" aria-label={t("about.facts")}>
-            <p className="t-meta mb-4 uppercase text-ink-3">{t("about.facts")}</p>
-            <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-3">
-              {facts.map((fact) => (
-                <div key={fact.label.en} className="contents">
-                  <dt className="t-small text-ink-3">{b(fact.label)}</dt>
-                  <dd className="t-small text-ink">{b(fact.value)}</dd>
-                </div>
-              ))}
-            </dl>
+          <aside className="bezel self-start" aria-label={t("about.facts")}>
+            <div className="bezel-core p-6">
+              <p className="t-meta mb-4 uppercase text-ink-3">{t("about.facts")}</p>
+              <dl className="grid grid-cols-[auto_minmax(0,1fr)]">
+                {facts.map((fact) => (
+                  <div key={fact.label.en} className="contents">
+                    <dt className="t-small border-t border-stroke py-2.5 pr-6 text-ink-3">{b(fact.label)}</dt>
+                    <dd className="t-small border-t border-stroke py-2.5 text-ink">{b(fact.value)}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </aside>
         </div>
 

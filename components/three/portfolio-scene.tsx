@@ -48,8 +48,8 @@ const MAX_TIER_CHANGES = 2;
 const TIERS: QualityTier[] = ["high", "medium", "low"];
 
 const ASCII_COLORS = {
-  green: { dim: "#1f4a30", mid: "#9ef5b5", hot: "#f5f6f7", bg: "#090b0d" },
-  amber: { dim: "#4d3411", mid: "#ffd28b", hot: "#fff4e0", bg: "#090b0d" },
+  green: { dim: "#1f4a30", mid: "#9ef5b5", hot: "#f5f5f7", bg: "#000000" },
+  amber: { dim: "#4d3411", mid: "#ffd28b", hot: "#fff4e0", bg: "#000000" },
 };
 
 function usePhosphor(): "green" | "amber" {

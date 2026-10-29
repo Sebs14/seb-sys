@@ -13,12 +13,12 @@ test.describe("GPU-01: degradación y recuperación", () => {
     await gotoHome(page);
     const box = page.locator(".scene-box");
     await expect(box).toHaveAttribute("data-status", "unsupported", { timeout: 15_000 });
-    await expect(page.locator("canvas")).toHaveCount(0);
+    await expect(page.locator(".scene-box canvas")).toHaveCount(0);
     await expect(box.getByRole("status")).toContainText(/WebGL/);
     await expect(box.getByRole("img")).toBeVisible();
     // Todo lo demás sigue: elegir proyecto y llegar a contacto.
     await page.getByRole("group", { name: /elegir proyecto|pick a project/i }).getByRole("button", { name: /TP Rental/ }).click();
-    await expect(page.locator('[aria-live="polite"][aria-atomic="true"] h2')).toHaveText("TP Rental");
+    await expect(page.locator('[aria-live="polite"][aria-atomic="true"] h3')).toHaveText("TP Rental");
     await page.getByRole("link", { name: /contactarme|get in touch/i }).click();
     await expect(page.locator("#contact")).toBeInViewport();
     await expect(page.getByText(/Application error|Unhandled Runtime Error/)).toHaveCount(0);
@@ -31,13 +31,13 @@ test.describe("GPU-01: degradación y recuperación", () => {
 
     const before = await page.evaluate(() => window.__sebStats?.frames ?? 0);
     await page.evaluate(() => {
-      const canvas = document.querySelector("canvas")!;
+      const canvas = document.querySelector<HTMLCanvasElement>(".scene-box canvas")!;
       const gl = canvas.getContext("webgl2")!;
       gl.getExtension("WEBGL_lose_context")!.loseContext();
     });
     await expect(box).toHaveAttribute("data-status", /recovering|loading/, { timeout: 5_000 });
     await expect(box).toHaveAttribute("data-status", "ready", { timeout: 15_000 });
-    await expect(page.locator("canvas")).toHaveCount(1);
+    await expect(page.locator(".scene-box canvas")).toHaveCount(1);
     // Cuadros nuevos después de recuperar: la escena está dibujando de verdad.
     await expect
       .poll(async () => page.evaluate(() => window.__sebStats?.frames ?? 0), { timeout: 5_000 })
@@ -54,7 +54,7 @@ test.describe("GPU-01: degradación y recuperación", () => {
 
     const lose = () =>
       page.evaluate(() => {
-        const canvas = document.querySelector("canvas");
+        const canvas = document.querySelector<HTMLCanvasElement>(".scene-box canvas");
         const gl = canvas?.getContext("webgl2");
         gl?.getExtension("WEBGL_lose_context")?.loseContext();
       });
@@ -98,7 +98,7 @@ test.describe("GPU-01: degradación y recuperación", () => {
     // En software (SwiftShader) puede colarse un cuadro ya encolado; con
     // GPU real la diferencia medida es 0 (docs/evidence/perf-gpu-metal.json).
     expect(b - a).toBeLessThanOrEqual(1);
-    await page.evaluate(() => window.scrollTo({ top: 0 }));
+    await box.scrollIntoViewIfNeeded();
     await expect.poll(frames, { timeout: 8_000 }).toBeGreaterThan(b);
   });
 });

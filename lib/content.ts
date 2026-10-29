@@ -24,14 +24,15 @@ export const identity = {
 };
 
 export const hero = {
-  // Líneas que se tipean en secuencia en el hero.
-  lines: [
-    { es: "Construyo sistemas que aguantan.", en: "I build systems that hold up." },
-    {
-      es: "Backend, interfaces y todo lo que hay en medio.",
-      en: "Backend, interfaces, and everything in between.",
-    },
+  // El titular va en dos renglones fijos: el corte es parte del diseño.
+  headline: [
+    { es: "Construyo sistemas", en: "I build systems" },
+    { es: "que aguantan.", en: "that hold up." },
   ] satisfies Bi[],
+  lead: {
+    es: "Backend, interfaces y todo lo que hay en medio.",
+    en: "Backend, interfaces, and everything in between.",
+  } satisfies Bi,
 };
 
 export const about = {

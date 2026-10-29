@@ -26,7 +26,7 @@ export function Experience() {
                   <ul className="mt-5 space-y-3">
                     {job.bullets.map((bullet, i) => (
                       <li key={i} className="t-small measure flex gap-3 text-ink-2">
-                        <span aria-hidden className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                        <span aria-hidden className="tick" />
                         <span>{b(bullet)}</span>
                       </li>
                     ))}
