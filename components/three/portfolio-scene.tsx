@@ -11,9 +11,8 @@ import { SCENE_CONFIG, CAMERA, initialTier } from "@/lib/scene-config";
 import { sceneStats } from "@/lib/scene-stats";
 import type { QualityTier } from "@/lib/scene-types";
 import { PIECE_SPRING, stepSpring } from "@/lib/spring";
-import { CoreAssembly } from "./core-assembly";
+import { DotSphere } from "./dot-sphere";
 import { SceneControls } from "./scene-controls";
-import { StudioEnvironment } from "./studio-environment";
 import { AsciiPass } from "./ascii-pass";
 import { WebcamPlane } from "./webcam-plane";
 import { createRig, type Rig } from "./scene-rig";
@@ -22,8 +21,9 @@ import { createRig, type Rig } from "./scene-rig";
    ESCENA DEL PORTAFOLIO — el Canvas y la composición de modos
 
    Una sola instancia WebGL. Núcleo, Sistemas y ASCII son estados del
-   mismo objeto: las piezas viajan (CoreAssembly), el pase ASCII se
-   mezcla encima (AsciiPass) y la cámara reencuadra (SceneControls).
+   mismo objeto: los puntos viajan de la esfera al grafo (DotSphere),
+   el pase ASCII se mezcla encima (AsciiPass) y la cámara reencuadra
+   (SceneControls).
 
    Render a demanda: cada parte pide cuadros mientras algo se mueve y
    deja de pedirlos al asentar. Fuera de pantalla o con la pestaña
@@ -263,8 +263,7 @@ function SceneBody({
 
   return (
     <>
-      <StudioEnvironment resolution={cfg.envResolution} />
-      <CoreAssembly
+      <DotSphere
         rig={rig}
         quality={tier}
         mode={mode}

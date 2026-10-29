@@ -27,7 +27,7 @@ import { motionIsStill, onMotionChange } from "@/lib/use-motion-preference";
 
 export type LiquidPalette = readonly [deep: string, mid: string, light: string];
 
-/* Cobalto (el acento del sitio), aluminio (la escultura), violeta y
+/* Cobalto (el acento del sitio), aluminio, violeta y
    fósforo (la terminal). Cada clic pasa a la siguiente. */
 export const PALETTES: readonly LiquidPalette[] = [
   ["#08134a", "#2f6bff", "#b6d6ff"],

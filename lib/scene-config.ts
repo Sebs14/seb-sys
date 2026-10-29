@@ -12,48 +12,18 @@ import type { QualityTier } from "./scene-types";
 export type SceneConfig = {
   /** tope de devicePixelRatio */
   dpr: number;
-  /** segmentos longitudinales de cada pieza */
-  arcSegments: number;
-  /** puntos del perfil (sección redondeada) */
-  profilePoints: number;
-  /** resolución del entorno PMREM */
-  envResolution: number;
+  /** puntos de la esfera antes de abrir las juntas */
+  dots: number;
+  /** puntos por arista del grafo */
+  edgeDots: number;
   /** ancho de celda ASCII en px CSS */
   asciiCell: number;
-  /** partículas del cambio de modo (0 = ninguna) */
-  particles: number;
-  /** segmentos radiales de los tubos del grafo */
-  edgeSegments: number;
 };
 
 export const SCENE_CONFIG: Record<QualityTier, SceneConfig> = {
-  high: {
-    dpr: 1.5,
-    arcSegments: 64,
-    profilePoints: 16,
-    envResolution: 256,
-    asciiCell: 7,
-    particles: 0,
-    edgeSegments: 8,
-  },
-  medium: {
-    dpr: 1.25,
-    arcSegments: 48,
-    profilePoints: 12,
-    envResolution: 128,
-    asciiCell: 8,
-    particles: 0,
-    edgeSegments: 6,
-  },
-  low: {
-    dpr: 1,
-    arcSegments: 32,
-    profilePoints: 10,
-    envResolution: 64,
-    asciiCell: 9,
-    particles: 0,
-    edgeSegments: 5,
-  },
+  high: { dpr: 1.75, dots: 2200, edgeDots: 26, asciiCell: 7 },
+  medium: { dpr: 1.5, dots: 1600, edgeDots: 20, asciiCell: 8 },
+  low: { dpr: 1.25, dots: 1100, edgeDots: 14, asciiCell: 9 },
 };
 
 /** Tier inicial: móvil o pantalla táctil chica arranca en `low`. */
@@ -66,15 +36,19 @@ export function initialTier(): QualityTier {
   return "high";
 }
 
-/** Geometría del núcleo (unidades de escena). */
+/** Geometría de la esfera (unidades de escena). */
 export const CORE = {
-  ringRadius: 1.35,
-  gap: 0.045,
-  ribbonWidth: 0.34,
-  ribbonThickness: 0.12,
-  axialWave: 0.16,
+  radius: 1.35,
+  /** diferencia de coseno que abre la junta entre regiones */
+  gap: 0.085,
+  /** radio de cada cúmulo en el modo Sistemas */
+  clusterRadius: 0.24,
+  /** tamaño del punto, en unidades de escena */
+  dotSize: 0.021,
   tiltX: (24 * Math.PI) / 180,
   tiltY: (12 * Math.PI) / 180,
+  /** inclinación máxima que el visitante puede sumar arrastrando */
+  maxTilt: 0.55,
   pieces: 7,
 } as const;
 

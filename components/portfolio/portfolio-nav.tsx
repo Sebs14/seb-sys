@@ -185,21 +185,26 @@ export function PortfolioNav() {
   );
 }
 
-/* La marca: los siete arcos de la escultura, uno en el acento. */
+/* La marca: siete puntos en círculo, uno por región de la esfera; el
+   último en el acento. Coordenadas redondeadas: el servidor y el
+   navegador tienen que escribir el mismo SVG. */
+const MARK_DOTS = Array.from({ length: 7 }, (_, i) => {
+  const a = -Math.PI / 2 + (i * 2 * Math.PI) / 7;
+  return { cx: (32 + 20 * Math.cos(a)).toFixed(2), cy: (32 + 20 * Math.sin(a)).toFixed(2) };
+});
+
 function LogoMark() {
-  const arcs = [
-    "M32 11 A21 21 0 0 1 49.6 20.7",
-    "M51.9 24.9 A21 21 0 0 1 52.3 36.1",
-    "M51 40.6 A21 21 0 0 1 43.3 49.4",
-    "M39.1 52 A21 21 0 0 1 24.9 52",
-    "M20.7 49.4 A21 21 0 0 1 13 40.6",
-    "M11.7 36.1 A21 21 0 0 1 12.1 24.9",
-    "M14.4 20.7 A21 21 0 0 1 27.5 11.5",
-  ];
   return (
-    <svg aria-hidden width="18" height="18" viewBox="0 0 64 64" fill="none" strokeWidth="8">
-      {arcs.map((d, i) => (
-        <path key={d} d={d} stroke={i === arcs.length - 1 ? "var(--color-accent)" : "currentColor"} opacity={i === arcs.length - 1 ? 1 : 0.55 + (i % 3) * 0.15} />
+    <svg aria-hidden width="18" height="18" viewBox="0 0 64 64">
+      {MARK_DOTS.map((d, i) => (
+        <circle
+          key={i}
+          cx={d.cx}
+          cy={d.cy}
+          r="6.5"
+          fill={i === MARK_DOTS.length - 1 ? "var(--color-accent)" : "currentColor"}
+          opacity={i === MARK_DOTS.length - 1 ? 1 : 0.55 + (i % 3) * 0.15}
+        />
       ))}
     </svg>
   );

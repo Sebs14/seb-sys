@@ -33,15 +33,15 @@ const UI = {
   "hero.contact": { es: "Contactarme", en: "Get in touch" },
 
   "explore.eyebrow": { es: "Explorar", en: "Explore" },
-  "explore.title": { es: "Siete proyectos, una pieza cada uno.", en: "Seven projects, one piece each." },
+  "explore.title": { es: "Siete proyectos, una región cada uno.", en: "Seven projects, one region each." },
   "explore.lead": {
-    es: "Cada arco de la escultura es un proyecto real. Separalos y aparecen las tecnologías que comparten.",
-    en: "Each arc of the sculpture is a real project. Pull them apart and the technologies they share appear.",
+    es: "Cada región de la esfera es un proyecto real. Separalas y aparecen las tecnologías que comparten.",
+    en: "Each region of the sphere is a real project. Pull them apart and the technologies they share appear.",
   },
 
   "scene.label": {
-    es: "Escultura interactiva de siete piezas de aluminio, una por proyecto",
-    en: "Interactive sculpture of seven aluminium pieces, one per project",
+    es: "Esfera de puntos interactiva: siete regiones, una por proyecto",
+    en: "Interactive dot sphere: seven regions, one per project",
   },
   "scene.modes": { es: "Presentación de la escena", en: "Scene presentation" },
   "scene.mode.core": { es: "Núcleo", en: "Core" },
@@ -51,8 +51,8 @@ const UI = {
   "scene.resume": { es: "Reanudar movimiento", en: "Resume motion" },
   "scene.reset": { es: "Restablecer vista", en: "Reset view" },
   "scene.hint": {
-    es: "Arrastrá para girar. Tocá una pieza para elegir un proyecto.",
-    en: "Drag to rotate. Tap a piece to pick a project.",
+    es: "Arrastrá para girar. Tocá una región para elegir un proyecto.",
+    en: "Drag to rotate. Tap a region to pick a project.",
   },
   "scene.hintSystems": {
     es: "Cada línea es una tecnología compartida entre dos proyectos.",
@@ -80,8 +80,8 @@ const UI = {
   "scene.sharesWith": { es: "Comparte tecnología con", en: "Shares technology with" },
   "scene.noConnections": { es: "Sin tecnologías compartidas", en: "No shared technologies" },
   "scene.fallbackAlt": {
-    es: "Anillo de siete segmentos de aluminio, cada uno un proyecto",
-    en: "Ring of seven aluminium segments, each one a project",
+    es: "Esfera de puntos dividida en siete regiones, cada una un proyecto",
+    en: "Dot sphere split into seven regions, each one a project",
   },
 
   "cam.start": { es: "Usar cámara", en: "Use camera" },

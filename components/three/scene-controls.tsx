@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { CAMERA_SPRING, damp, stepSpring } from "@/lib/spring";
-import { CAMERA } from "@/lib/scene-config";
+import { CAMERA, CORE } from "@/lib/scene-config";
 import { sceneStats } from "@/lib/scene-stats";
 import type { SceneMode } from "@/lib/scene-types";
-import { boundingRadius } from "./core-geometry";
+import { boundingRadius } from "./dot-sphere";
 import type { Rig } from "./scene-rig";
 
 /* ══════════════════════════════════════════════════════════════
@@ -29,7 +29,7 @@ import type { Rig } from "./scene-rig";
 const DRAG_THRESHOLD = 8;
 const SPEED_Y = 0.0065;
 const SPEED_X = 0.0045;
-const MAX_TILT = 0.55;
+const MAX_TILT = CORE.maxTilt;
 
 type Props = {
   rig: Rig;
@@ -144,13 +144,14 @@ export function SceneControls({ rig, mode, graphRadius, still, onDragChange }: P
 
     // ── inercia y reset ─────────────────────────────────────────
     if (rig.resetRequested) {
+      // "Inicio" es la vista que mira de frente a la región elegida.
       rig.spin.vx = 0;
       rig.spin.vy = 0;
-      rig.spin.x = damp(rig.spin.x, 0, 10, dt);
-      rig.spin.y = damp(rig.spin.y, 0, 10, dt);
-      if (Math.abs(rig.spin.x) < 1e-3 && Math.abs(rig.spin.y) < 1e-3) {
-        rig.spin.x = 0;
-        rig.spin.y = 0;
+      rig.spin.x = still ? rig.home.x : damp(rig.spin.x, rig.home.x, 7, dt);
+      rig.spin.y = still ? rig.home.y : damp(rig.spin.y, rig.home.y, 7, dt);
+      if (Math.abs(rig.spin.x - rig.home.x) < 1e-3 && Math.abs(rig.spin.y - rig.home.y) < 1e-3) {
+        rig.spin.x = rig.home.x;
+        rig.spin.y = rig.home.y;
         rig.resetRequested = false;
       } else {
         moving = true;

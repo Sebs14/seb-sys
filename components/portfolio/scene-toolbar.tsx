@@ -37,7 +37,7 @@ export function SceneToolbar({ apiRef, className }: { apiRef: React.RefObject<Sc
         ))}
       </div>
 
-      <div className="flex items-center gap-1">
+      <div className="flex flex-wrap items-center gap-1">
         <button
           type="button"
           className="btn btn-ghost btn-sm"

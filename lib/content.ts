@@ -341,18 +341,18 @@ export const projects: Project[] = [
     org: { es: "Este sitio", en: "This site" },
     year: "2026",
     tagline: {
-      es: "Una escultura de aluminio que se abre en siete sistemas",
-      en: "An aluminium sculpture that opens into seven systems",
+      es: "Una esfera de puntos que se abre en siete sistemas",
+      en: "A dot sphere that opens into seven systems",
     },
     description: {
-      es: "Este sitio. Una escena Three.js con siete piezas de aluminio, una por proyecto, que se separan en un mapa conectado por tecnologías compartidas y pueden verse como ASCII. El modo ASCII es un post-proceso en GPU: la escena se renderiza a un texel por celda de caracter y un shader elige el glifo según la luminancia. El texto, la navegación y la terminal son HTML.",
-      en: "This site. A Three.js scene with seven aluminium pieces, one per project, that separate into a map connected by shared technologies and can be viewed as ASCII. ASCII mode is a GPU post-process: the scene renders to one texel per character cell and a shader picks the glyph from its luminance. Text, navigation and the terminal are HTML.",
+      es: "Este sitio. Una escena Three.js: una esfera de puntos dividida en siete regiones, una por proyecto, que se separan en un mapa conectado por tecnologías compartidas y puede verse como ASCII. El modo ASCII es un post-proceso en GPU: la escena se renderiza a un texel por celda de caracter y un shader elige el glifo según la luminancia. El texto, la navegación y la terminal son HTML.",
+      en: "This site. A Three.js scene: a dot sphere split into seven regions, one per project, that separate into a map connected by shared technologies and can be viewed as ASCII. ASCII mode is a GPU post-process: the scene renders to one texel per character cell and a shader picks the glyph from its luminance. Text, navigation and the terminal are HTML.",
     },
     flow: "núcleo ─▶ sistemas ─▶ 1 texel/celda ─▶ glifo",
     highlights: [
       {
-        es: "Los tres modos son estados del mismo objeto: las piezas viajan del anillo al grafo y el pase ASCII se aplica encima; no hay tres escenas.",
-        en: "The three modes are states of one object: the pieces travel from the ring to the graph and the ASCII pass sits on top; there are not three scenes.",
+        es: "Los tres modos son estados del mismo objeto: los mismos puntos viajan de la esfera al grafo y el pase ASCII se aplica encima; no hay tres escenas.",
+        en: "The three modes are states of one object: the same dots travel from the sphere to the graph and the ASCII pass sits on top; there are not three scenes.",
       },
       {
         es: "El ASCII vive entero en la GPU: el AsciiEffect de los ejemplos de Three.js genera una tabla con miles de nodos del DOM y se arrastra. Render a demanda, fallback sin WebGL y movimiento reducido real.",

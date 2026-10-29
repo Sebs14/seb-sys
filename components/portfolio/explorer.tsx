@@ -11,8 +11,8 @@ import { SectionHeader } from "./section-header";
 /* ══════════════════════════════════════════════════════════════
    ESCENARIO
 
-   La escultura de siete piezas dentro de un marco de doble bisel,
-   como una pieza en exhibición: a un lado el índice de proyectos con
+   La esfera de puntos de siete regiones dentro de un marco de doble
+   bisel, como una pieza en exhibición: a un lado el índice con
    regla y los controles de la escena; al otro la escena; abajo, la
    ficha del elegido. El índice HTML y la escena son la misma
    selección.

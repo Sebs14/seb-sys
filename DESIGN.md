@@ -10,7 +10,7 @@ desde cero. Este documento describe lo construido, no una maqueta.
 
 La portada es una sola idea: el titular **es** la imagen. Seda líquida
 fluye dentro de las letras (WebGL propio) y con un clic cambia de
-paleta. Debajo, la escultura de siete arcos de aluminio (un arco por
+paleta. Debajo, una esfera de puntos partida en siete regiones (una por
 proyecto) vive en un **escenario**: un marco de doble bisel, como una
 pieza en exhibición, con un índice de proyectos dibujado como regla. El
 resto es lectura tranquila sobre negro. La terminal y el laboratorio
@@ -79,8 +79,8 @@ Contrastes medidos (WCAG, `node scripts/contrast.mjs`):
 
 ## Composición
 
-- **Navegación**: una píldora translúcida centrada: marca (los siete
-  arcos, uno en cobalto), filete, enlaces, filete, idioma, terminal y
+- **Navegación**: una píldora translúcida centrada: marca (siete puntos
+  en círculo, uno en cobalto), filete, enlaces, filete, idioma, terminal y
   Contacto en blanco. En móvil ocupa el ancho con menú desplegable.
 - **Portada**: centrada y a pantalla completa. Pastilla con nombre y rol,
   titular líquido en dos renglones fijos, bajada y dos acciones. Detrás,
@@ -126,12 +126,34 @@ Contrastes medidos (WCAG, `node scripts/contrast.mjs`):
 
 ## La escena
 
-Sin cambios de comportamiento respecto del rediseño anterior (anillo de
-siete arcos, modos Núcleo / Sistemas / ASCII, render a demanda,
-recuperación de contexto, niveles de calidad). Cambió el acento: la
-marca de selección, las aristas encendidas y la tira de luz del entorno
-son cobalto; el fondo del pase ASCII es negro puro. Como ya no está en la
-primera pantalla, no dibuja hasta que el visitante llega al escenario.
+Una **esfera de puntos** (`components/three/dot-sphere.tsx`, geometría
+pura en `lib/dot-sphere.ts`) reemplazó al anillo de aluminio: el metal
+cromado no iba con la estética.
+
+- **Núcleo**: espiral de Fibonacci (2200 / 1600 / 1100 puntos según el
+  nivel) sobre una esfera de radio 1.35, repartida entre siete semillas
+  (una por proyecto). Los puntos de la frontera se quitan (diferencia de
+  coseno < 0.085): esa franja vacía es la junta entre regiones. La región
+  elegida se pinta cobalto, se agranda y se asoma un 4.5 %; la de abajo
+  del puntero se aclara. Una marca circular de 1 px señala cada región.
+- **Elegir un proyecto gira la esfera** por la vuelta más corta hasta
+  mostrar su región de frente (`facingSpin`); esa es también la vista a
+  la que vuelve "Restablecer". Al cargar ya arranca mirando a la elegida.
+- **Sistemas**: los MISMOS puntos se contraen en siete cúmulos esféricos
+  (radio 0.24) que viajan a los nodos del grafo; un solo resorte
+  (`rig.spread`) interpola en el shader. Las tecnologías compartidas son
+  líneas de puntos; las del proyecto elegido, cobalto.
+- **Toque**: en Núcleo responde la esfera entera (el punto tocado se
+  lleva a la región más cercana); en Sistemas, los cúmulos. Las zonas de
+  toque son mallas invisibles.
+- **Sin luces ni entorno**: todo es `Points` con `ShaderMaterial`. El
+  tamaño del punto se pide en unidades de escena y se convierte a píxeles
+  del destino actual en `onBeforeRender`, así que el mismo material sirve
+  en el canvas y en el render target de una celda por texel del ASCII
+  (donde los puntos crecen ×2.6 para registrar luminancia).
+- Sin cambios en ASCII, cámara, render a demanda, recuperación de
+  contexto ni niveles de calidad. No dibuja hasta que el visitante llega
+  al escenario.
 
 ## Movimiento de interfaz
 
