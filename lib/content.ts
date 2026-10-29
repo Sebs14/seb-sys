@@ -26,8 +26,8 @@ export const identity = {
 export const hero = {
   // El titular va en dos renglones fijos: el corte es parte del diseño.
   headline: [
-    { es: "Construyo sistemas", en: "I build systems" },
-    { es: "que aguantan.", en: "that hold up." },
+    { es: "Hola, soy", en: "Hi, I'm" },
+    { es: "Sebastián.", en: "Sebastián." },
   ] satisfies Bi[],
   lead: {
     es: "Backend, interfaces y todo lo que hay en medio.",

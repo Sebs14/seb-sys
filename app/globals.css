@@ -93,7 +93,7 @@
   --section-gap: clamp(80px, 6vw + 40px, 160px);
 
   /* tipografía fluida (px de referencia: móvil → escritorio) */
-  --t-liquid: clamp(2.625rem, 0.4rem + 9.6vw, 6.5rem); /* 42 → 104 */
+  --t-liquid: clamp(3.25rem, 0.6rem + 16vw, 9rem); /* 52 → 144 */
   --t-display: clamp(2.75rem, 1.4rem + 4.6vw, 5.5rem); /* 44 → 88 */
   --t-h2: clamp(1.875rem, 1.2rem + 2.4vw, 3.25rem); /* 30 → 52 */
   --t-h3: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem); /* 20 → 24 */

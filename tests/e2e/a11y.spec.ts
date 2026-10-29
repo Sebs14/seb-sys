@@ -41,7 +41,7 @@ test.describe("A11Y-01: teclado, movimiento y semántica", () => {
   test("con movimiento reducido el texto final es visible y la escena se dibuja estática", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await gotoHome(page);
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(/aguantan|hold up/);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Sebastián/);
     const box = await waitScene(page);
     const status = await box.getAttribute("data-status");
     if (status === "ready") {

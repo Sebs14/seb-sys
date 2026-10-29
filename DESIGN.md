@@ -56,7 +56,9 @@ Contrastes medidos (WCAG, `node scripts/contrast.mjs`):
   autoalojada con `next/font`). Mono: JetBrains Mono, sólo en terminal,
   metadatos, chips y ASCII.
 - Titular líquido: 700, tracking −0.045em, interlineado 1.02, tamaño
-  `clamp(42px, 0.4rem + 9.6vw, 104px)`.
+  `clamp(52px, 0.6rem + 16vw, 144px)` ("Hola, soy / Sebastián.": la
+  frase corta permite ir más grande; el cierre lo achica con
+  `--liquid-size`).
 - h2 30→52 (600, −0.04em, lh 1.05); h3 20→24; lead 17→20; cuerpo 16→17
   (lh 1.65); ui 14; meta 12 en mono con tracking +0.04em.
 - Antetítulo de sección: un filete cobalto de 24 px y el nombre en
@@ -82,8 +84,8 @@ Contrastes medidos (WCAG, `node scripts/contrast.mjs`):
 - **Navegación**: una píldora translúcida centrada: marca (siete puntos
   en círculo, uno en cobalto), filete, enlaces, filete, idioma, terminal y
   Contacto en blanco. En móvil ocupa el ancho con menú desplegable.
-- **Portada**: centrada y a pantalla completa. Pastilla con nombre y rol,
-  titular líquido en dos renglones fijos, bajada y dos acciones. Detrás,
+- **Portada**: centrada y a pantalla completa. Pastilla con rol y país,
+  el saludo "Hola, soy / Sebastián." en líquido, bajada y dos acciones. Detrás,
   un resplandor radial que **toma el color de la paleta activa**
   (`@property --glow` animable, 900 ms).
 - **Escenario** (`#explore`): escritorio con índice (regla) y controles a

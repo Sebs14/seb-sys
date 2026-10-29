@@ -8,11 +8,11 @@ import { LiquidHeadline, PALETTES, type LiquidPalette } from "@/components/fx/li
 /* ══════════════════════════════════════════════════════════════
    PORTADA
 
-   Una sola idea por pantalla: el titular ES la imagen. Nombre y rol
-   arriba, el titular líquido al centro, la bajada y dos acciones.
-   Detrás, un resplandor que toma el color de la paleta activa y una
-   retícula de puntos que se disuelve. Todo el texto es HTML desde el
-   primer render; el WebGL llega encima y no mueve nada.
+   Una sola idea por pantalla: el titular ES la imagen. Rol y país
+   arriba, el saludo con el nombre en líquido al centro, la bajada y
+   dos acciones. Detrás, un resplandor que toma el color de la paleta
+   activa y una retícula de puntos que se disuelve. Todo el texto es
+   HTML desde el primer render; el WebGL llega encima y no mueve nada.
    ══════════════════════════════════════════════════════════════ */
 
 export function Hero() {
@@ -25,11 +25,11 @@ export function Hero() {
       <div aria-hidden className="hero-backdrop" />
       <div className="container-x">
         <p className="hero-kicker t-ui">
-          <span className="text-ink">{identity.name}</span>
+          <span className="text-ink">{b(identity.role)}</span>
           <span aria-hidden className="text-ink-3">
             ·
           </span>
-          {b(identity.role)}
+          {b(identity.location)}
         </p>
         <LiquidHeadline
           id="hero-title"
